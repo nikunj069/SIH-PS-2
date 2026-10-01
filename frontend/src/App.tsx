@@ -1,5 +1,7 @@
 import { Component, useState, useEffect, useRef, type ReactNode } from 'react';
-import { Navbar, type ScreenId } from './components/Navbar';
+import { Sidebar, ScreenId } from './components/shell/Sidebar';
+import { TopBar } from './components/shell/TopBar';
+import { ViewMode } from './components/common/ViewModeSwitch';
 import { FleetCommandCenter } from './pages/FleetCommandCenter';
 import { DigitalTwinMap } from './pages/DigitalTwinMap';
 import { FuelIntelligence } from './pages/FuelIntelligence';
@@ -7,8 +9,10 @@ import { OptimizerTelemetry } from './pages/OptimizerTelemetry';
 import { ParetoExplorer } from './pages/ParetoExplorer';
 import { StormSimulator } from './pages/StormSimulator';
 import { VoyageReplay } from './pages/VoyageReplay';
+import { DesignSystemShowcase } from './pages/DesignSystemShowcase';
 import { api } from './services/api';
-import { Sparkles } from 'lucide-react';
+import { copy } from './copy/en';
+import { PlayCircle } from 'lucide-react';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -35,12 +39,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="glass-panel p-8 rounded-2xl border border-cyan-500/40 text-center my-8 max-w-xl mx-auto">
-          <h2 className="text-xl font-bold text-white mb-2">Display Synchronization</h2>
-          <p className="text-xs font-mono text-slate-400 mb-4">{this.state.error?.message}</p>
+        <div className="bg-surface border border-danger/40 p-8 rounded-card text-center my-8 max-w-xl mx-auto shadow-card">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">Display Synchronization Notice</h2>
+          <p className="text-sm text-slate-600 mb-4">{this.state.error?.message}</p>
           <button
             onClick={() => { this.setState({ hasError: false }); window.location.reload(); }}
-            className="px-4 py-2 bg-cyan-500 text-black text-xs font-mono font-bold rounded-xl"
+            className="px-4 py-2 bg-primary text-white text-sm font-semibold rounded-control cursor-pointer hover:bg-primary-hover focus-ring"
           >
             Refresh View
           </button>
@@ -53,48 +57,52 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
 export function App() {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('command');
-  const [isBackendLive, setIsBackendLive] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<ViewMode>('client');
+  const [selectedScenario, setSelectedScenario] = useState<string>('baseline');
+  const [isBackendLive, setIsBackendLive] = useState<boolean>(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+
+  // Guided Demo Flow State
   const [demoActive, setDemoActive] = useState<boolean>(false);
   const [demoStep, setDemoStep] = useState<number>(1);
   const [demoBannerText, setDemoBannerText] = useState<string>('');
-
   const demoIntervalRef = useRef<any>(null);
 
   const demoSequence: { screen: ScreenId; duration: number; caption: string }[] = [
     {
       screen: 'command',
       duration: 12000,
-      caption: 'Step 1/7: Fleet Command Center — Synchronizing 12 commercial vessels across 4 global corridors with physics-informed digital twin.'
+      caption: 'Step 1/7: Fleet overview — Monitor 12 vessels across 4 global corridors and review recommended operating plans.'
     },
     {
       screen: 'twin-map',
       duration: 12000,
-      caption: 'Step 2/7: Digital Twin Map — Georeferenced fairways, IMO Emission Control Areas (ECAs), and port hubs with Onshore Power Supply (OPS).'
+      caption: 'Step 2/7: Fleet map — Georeferenced commercial routes, emissions control zones, and shore electricity ports.'
     },
     {
       screen: 'fuels',
       duration: 12000,
-      caption: 'Step 3/7: Fuel Reality Engine — IMO MEPC.391(81) Well-to-Wake (WtT + TtW + CH4 slip + N2O) lifecycle greenhouse gas accounting.'
+      caption: 'Step 3/7: Fuel options — Compare fuel prices, availability, and Well-to-Wake lifecycle carbon intensity.'
     },
     {
       screen: 'telemetry',
       duration: 14000,
-      caption: 'Step 4/7: Optimizer Telemetry — Q-GREEN Hybrid (QIGA discrete + QPSO continuous + NSGA-II archive) with evaluation budget parity.'
+      caption: 'Step 4/7: Optimization progress — Watch multi-objective scheduling search across speed, route, and bunkering options.'
     },
     {
       screen: 'pareto',
       duration: 14000,
-      caption: 'Step 5/7: Pareto Front Explorer — Multi-objective trade-off (Cost vs GHG vs Risk CVaR95) with independent constraint validation and explainability.'
+      caption: 'Step 5/7: Compare plans — Inspect operating trade-offs between voyage cost, emissions abatement, and schedule risk.'
     },
     {
       screen: 'storm',
       duration: 14000,
-      caption: 'Step 6/7: Storm & What-If Simulator — Sudden weather perturbation triggers warm-start rapid re-planning in under 1.5 seconds.'
+      caption: 'Step 6/7: What-if scenarios — Test weather disruptions and evaluate rapid automated schedule recovery.'
     },
     {
       screen: 'replay',
       duration: 14000,
-      caption: 'Step 7/7: Voyage Replay — Historic AIS track vs model counterfactual profile proving 18.6% fuel savings and 23.9% GHG abatement.'
+      caption: 'Step 7/7: Voyage review — Review completed voyage logs against optimized counterfactual profiles.'
     }
   ];
 
@@ -109,7 +117,7 @@ export function App() {
 
   const handleToggleDemo = () => {
     if (demoActive) {
-      if (demoIntervalRef.current) clearInterval(demoIntervalRef.current);
+      if (demoIntervalRef.current) clearTimeout(demoIntervalRef.current);
       setDemoActive(false);
       setDemoBannerText('');
     } else {
@@ -121,7 +129,7 @@ export function App() {
   const runDemoStep = (index: number) => {
     if (index >= demoSequence.length) {
       setDemoActive(false);
-      setDemoBannerText('Judge Demo Completed! Explore any screen at your own pace.');
+      setDemoBannerText('Guided demo complete! Explore any screen at your own pace.');
       setTimeout(() => setDemoBannerText(''), 6000);
       return;
     }
@@ -138,73 +146,90 @@ export function App() {
 
   useEffect(() => {
     return () => {
-      if (demoIntervalRef.current) clearInterval(demoIntervalRef.current);
+      if (demoIntervalRef.current) clearTimeout(demoIntervalRef.current);
     };
   }, []);
 
+  // Compute Page Title for TopBar
+  const getPageTitle = (screen: ScreenId): string => {
+    switch (screen) {
+      case 'command': return copy.fleetOverview.pageTitle;
+      case 'twin-map': return copy.fleetMap.pageTitle;
+      case 'fuels': return copy.fuelOptions.pageTitle;
+      case 'telemetry': return copy.optimizationProgress.pageTitle;
+      case 'pareto': return copy.comparePlans.pageTitle;
+      case 'storm': return copy.whatIfScenarios.pageTitle;
+      case 'replay': return copy.voyageReview.pageTitle;
+      case 'design-system': return 'Design system catalog';
+      default: return copy.brand.name;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#040814] text-slate-100 flex flex-col font-sans">
-      {/* Top Navbar */}
-      <Navbar
+    <div className="min-h-screen bg-canvas text-slate-900 flex font-sans antialiased">
+      {/* Fixed Left Sidebar (256px) */}
+      <Sidebar
         activeScreen={activeScreen}
         onSelectScreen={(screen) => {
           if (demoActive) handleToggleDemo();
           setActiveScreen(screen);
         }}
-        isBackendLive={isBackendLive}
-        demoActive={demoActive}
-        demoStep={demoStep}
-        demoTotalSteps={demoSequence.length}
-        onToggleDemo={handleToggleDemo}
+        onStartDemo={handleToggleDemo}
+        isDemoActive={demoActive}
+        isOpenMobile={isMobileMenuOpen}
+        onCloseMobile={() => setIsMobileMenuOpen(false)}
       />
 
-      {/* Demo Walkthrough Floating Ribbon */}
-      {demoActive && (
-        <div className="bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 text-white text-xs font-mono py-2 px-4 shadow-lg sticky top-16 z-40 flex items-center justify-between">
-          <div className="flex items-center gap-2 max-w-5xl mx-auto">
-            <Sparkles className="w-4 h-4 animate-spin-slow shrink-0" />
-            <span className="font-semibold">{demoBannerText}</span>
-          </div>
-          <button
-            onClick={handleToggleDemo}
-            className="text-white hover:text-slate-200 text-xs font-bold underline shrink-0 ml-4"
-          >
-            Exit Demo
-          </button>
-        </div>
-      )}
+      {/* Main Content Area (offset by 256px on lg screens) */}
+      <div className="flex-1 flex flex-col min-w-0 lg:pl-64">
+        {/* TopBar (64px, Sticky) */}
+        <TopBar
+          pageTitle={getPageTitle(activeScreen)}
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+          selectedScenario={selectedScenario}
+          onSelectScenario={setSelectedScenario}
+          isBackendLive={isBackendLive}
+          onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        />
 
-      {/* Main Screen Content */}
-      <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 sm:p-6 lg:p-8">
-        <ErrorBoundary key={activeScreen}>
-          {activeScreen === 'command' && <FleetCommandCenter onNavigate={setActiveScreen} />}
-          {activeScreen === 'twin-map' && <DigitalTwinMap />}
-          {activeScreen === 'fuels' && <FuelIntelligence />}
-          {activeScreen === 'telemetry' && <OptimizerTelemetry onNavigateToPareto={() => setActiveScreen('pareto')} />}
-          {activeScreen === 'pareto' && <ParetoExplorer />}
-          {activeScreen === 'storm' && <StormSimulator />}
-          {activeScreen === 'replay' && <VoyageReplay />}
-        </ErrorBoundary>
-      </main>
+        {/* Guided Demo Ribbon */}
+        {demoActive && (
+          <div className="bg-primary text-white text-xs py-2.5 px-6 shadow-sm sticky top-16 z-20 flex items-center justify-between border-b border-primary-press">
+            <div className="flex items-center gap-2 max-w-5xl">
+              <PlayCircle className="w-4 h-4 animate-pulse shrink-0" />
+              <span className="font-medium">{demoBannerText}</span>
+            </div>
+            <button
+              onClick={handleToggleDemo}
+              className="text-white hover:text-slate-200 text-xs font-semibold underline shrink-0 ml-4 cursor-pointer"
+            >
+              Exit demo
+            </button>
+          </div>
+        )}
 
-      {/* Bottom Footer */}
-      <footer className="glass-panel border-t border-slate-800/80 mt-12 py-6 text-center text-xs font-mono text-slate-500">
-        <div className="max-w-[1600px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-cyan-400" />
-            <span className="text-slate-400">
-              Q-GREEN FLEET v2 · Classical Quantum-Inspired Maritime Fleet &amp; Route Decarbonization
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-slate-400">
-            <span>Honesty Rule: No Quantum Advantage Claims</span>
-            <span>•</span>
-            <span>IMO Resolution MEPC.391(81)</span>
-            <span>•</span>
-            <span>Seed: 42 Deterministic</span>
-          </div>
-        </div>
-      </footer>
+        {/* Page Container (Max-width 1440px, centered, 32px gutters) */}
+        <main className="flex-1 max-w-[1440px] w-full mx-auto p-6 lg:p-8">
+          <ErrorBoundary key={activeScreen}>
+            {activeScreen === 'command' && (
+              <FleetCommandCenter
+                viewMode={viewMode}
+                onNavigate={setActiveScreen}
+              />
+            )}
+            {activeScreen === 'twin-map' && <DigitalTwinMap />}
+            {activeScreen === 'fuels' && <FuelIntelligence />}
+            {activeScreen === 'telemetry' && (
+              <OptimizerTelemetry onNavigateToPareto={() => setActiveScreen('pareto')} />
+            )}
+            {activeScreen === 'pareto' && <ParetoExplorer />}
+            {activeScreen === 'storm' && <StormSimulator />}
+            {activeScreen === 'replay' && <VoyageReplay />}
+            {activeScreen === 'design-system' && <DesignSystemShowcase />}
+          </ErrorBoundary>
+        </main>
+      </div>
     </div>
   );
 }
