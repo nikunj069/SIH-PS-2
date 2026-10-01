@@ -224,6 +224,10 @@ class ApiService {
     return benchmarkData;
   }
 
+  async getParetoSolutions(): Promise<ParetoSolution[]> {
+    return this.generateSampleParetoSolutions();
+  }
+
   generateSampleParetoSolutions(): ParetoSolution[] {
     return [
       {

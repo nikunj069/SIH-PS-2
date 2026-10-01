@@ -1,6 +1,6 @@
 import React from 'react';
 import { Info } from 'lucide-react';
-import { normalizeProvenance, RawProvenance } from '../../utils/provenance';
+import { normalizeProvenance, type RawProvenance } from '../../utils/provenance';
 import { Tooltip } from './Tooltip';
 
 export interface DataBasisChipProps {

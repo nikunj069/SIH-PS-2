@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowUpRight, ArrowDownRight, Minus, HelpCircle } from 'lucide-react';
 import { DataBasisChip } from './DataBasisChip';
 import { Tooltip } from './Tooltip';
-import { RawProvenance } from '../../utils/provenance';
+import type { RawProvenance } from '../../utils/provenance';
 
 export interface KpiDelta {
   value: string;
@@ -15,6 +15,7 @@ export interface KpiTileProps {
   label: string;
   value?: string | number | null;
   unit?: string;
+  caption?: string;
   delta?: KpiDelta;
   provenance?: RawProvenance | string | null;
   tooltipText?: string;
@@ -25,6 +26,7 @@ export const KpiTile: React.FC<KpiTileProps> = ({
   label,
   value,
   unit,
+  caption,
   delta,
   provenance,
   tooltipText,
@@ -119,6 +121,8 @@ export const KpiTile: React.FC<KpiTileProps> = ({
               </div>
             );
           })()
+        ) : caption ? (
+          <span className="text-slate-600">{caption}</span>
         ) : (
           <span className="text-slate-400 italic">
             {hasValue ? 'Baseline performance' : 'Not calculated yet'}

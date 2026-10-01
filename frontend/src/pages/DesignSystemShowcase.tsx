@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from '../components/common/Button';
-import { Card } from '../components/common/Card';
 import { KpiTile } from '../components/common/KpiTile';
 import { DataBasisChip } from '../components/common/DataBasisChip';
 import { Tabs } from '../components/common/Tabs';
-import { ViewModeSwitch, ViewMode } from '../components/common/ViewModeSwitch';
+import { ViewModeSwitch, type ViewMode } from '../components/common/ViewModeSwitch';
 import { EmptyState } from '../components/common/EmptyState';
 import { ErrorState } from '../components/common/ErrorState';
 import { Skeleton, CardSkeleton } from '../components/common/Skeleton';
 import { Drawer } from '../components/common/Drawer';
-import { DataTable, Column } from '../components/common/DataTable';
+import { DataTable, type Column } from '../components/common/DataTable';
 import { Play, Sparkles, AlertTriangle, Layers } from 'lucide-react';
 
 interface SampleRow extends Record<string, unknown> {

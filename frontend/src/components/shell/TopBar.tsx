@@ -1,6 +1,6 @@
 import React from 'react';
-import { Menu, ChevronDown, CheckCircle2 } from 'lucide-react';
-import { ViewModeSwitch, ViewMode } from '../common/ViewModeSwitch';
+import { Menu, ChevronDown } from 'lucide-react';
+import { ViewModeSwitch, type ViewMode } from '../common/ViewModeSwitch';
 import { Tooltip } from '../common/Tooltip';
 import { copy } from '../../copy/en';
 

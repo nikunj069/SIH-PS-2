@@ -1,7 +1,7 @@
 import { Component, useState, useEffect, useRef, type ReactNode } from 'react';
-import { Sidebar, ScreenId } from './components/shell/Sidebar';
+import { Sidebar, type ScreenId } from './components/shell/Sidebar';
 import { TopBar } from './components/shell/TopBar';
-import { ViewMode } from './components/common/ViewModeSwitch';
+import type { ViewMode } from './components/common/ViewModeSwitch';
 import { FleetCommandCenter } from './pages/FleetCommandCenter';
 import { DigitalTwinMap } from './pages/DigitalTwinMap';
 import { FuelIntelligence } from './pages/FuelIntelligence';
@@ -64,7 +64,6 @@ export function App() {
 
   // Guided Demo Flow State
   const [demoActive, setDemoActive] = useState<boolean>(false);
-  const [demoStep, setDemoStep] = useState<number>(1);
   const [demoBannerText, setDemoBannerText] = useState<string>('');
   const demoIntervalRef = useRef<any>(null);
 
@@ -136,7 +135,6 @@ export function App() {
 
     const current = demoSequence[index];
     setActiveScreen(current.screen);
-    setDemoStep(index + 1);
     setDemoBannerText(current.caption);
 
     demoIntervalRef.current = setTimeout(() => {

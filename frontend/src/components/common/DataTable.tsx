@@ -23,7 +23,7 @@ export interface DataTableProps<T> {
   analystMode?: boolean;
 }
 
-export function DataTable<T extends Record<string, unknown>>({
+export function DataTable<T extends object>({
   columns,
   data,
   keyExtractor,
@@ -61,8 +61,8 @@ export function DataTable<T extends Record<string, unknown>>({
     if (!sortKey) return data;
 
     return [...data].sort((a, b) => {
-      const valA = a[sortKey];
-      const valB = b[sortKey];
+      const valA = (a as Record<string, unknown>)[sortKey];
+      const valB = (b as Record<string, unknown>)[sortKey];
 
       if (valA === valB) return 0;
       if (valA === undefined || valA === null) return 1;
@@ -169,7 +169,7 @@ export function DataTable<T extends Record<string, unknown>>({
 
                     return (
                       <td key={col.key} className={`px-4 py-3 ${alignClass}`}>
-                        {col.render ? col.render(row) : String(row[col.key] ?? '—')}
+                        {col.render ? col.render(row) : String((row as Record<string, unknown>)[col.key] ?? '—')}
                       </td>
                     );
                   })}
