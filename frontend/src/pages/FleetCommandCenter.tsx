@@ -225,17 +225,17 @@ export const FleetCommandCenter: React.FC<Props> = ({ onNavigate }) => {
                     <div className="font-sans font-medium text-slate-100">{v.name}</div>
                     <div className="text-[10px] text-slate-500">{v.vessel_class} · {v.vessel_type}</div>
                   </td>
-                  <td className="py-3 px-4">{v.dwt.toLocaleString()} t</td>
+                  <td className="py-3 px-4">{v.dwt ? v.dwt.toLocaleString() : '—'} t</td>
                   <td className="py-3 px-4 text-slate-200">
-                    {v.speed_min} - {v.speed_max} kts
+                    {v.speed_min ?? 11} - {v.speed_max ?? 21} kts
                   </td>
-                  <td className="py-3 px-4">{v.draft} m</td>
+                  <td className="py-3 px-4">{v.draft ?? 14} m</td>
                   <td className="py-3 px-4">
-                    <span className="text-amber-400">{v.hull_exponent.toFixed(2)}</span>
+                    <span className="text-amber-400">{(v.hull_exponent ?? 3.0).toFixed(2)}</span>
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex flex-wrap gap-1 max-w-[200px]">
-                      {v.compatible_fuels.map(f => (
+                      {(v.compatible_fuels ?? []).map((f: string) => (
                         <span key={f} className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
                           {f}
                         </span>

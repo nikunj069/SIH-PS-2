@@ -17,6 +17,115 @@ import benchmarkData from '../data/benchmark_summary.json';
 
 const API_BASE_URL = 'http://127.0.0.1:8000';
 
+const normalizeVessel = (v: any): Vessel => {
+  const hull_exponent = v.speed_exponent_n ?? v.hull_exponent ?? 3.0;
+  const speed_min = v.min_speed_knots ?? v.speed_min ?? 11.0;
+  const speed_max = v.max_speed_knots ?? v.speed_max ?? 21.0;
+  const draft = v.draft_design_m ?? v.draft ?? 14.0;
+  const compatible_fuels = v.fuel_compat ?? v.compatible_fuels ?? ['hfo', 'mgo'];
+  const ops_capable = v.ops_compatible ?? v.ops_capable ?? false;
+  const power_kw = v.engine_kw ?? v.power_kw ?? 45000;
+  const design_speed = v.design_speed_knots ?? v.design_speed ?? 16.0;
+  const sfoc_base = v.sfoc_base_g_kwh ?? v.sfoc_base ?? 170.0;
+  const tank_capacities_tonnes = v.tank_capacities_tonnes ?? {};
+  const tank_capacity_t = v.tank_capacity_t ?? (Object.values(tank_capacities_tonnes).length > 0 ? Math.max(...Object.values(tank_capacities_tonnes).map(Number)) : 3000);
+
+  return {
+    ...v,
+    vessel_class: v.vessel_class ?? (v.capacity_teu ? `${v.capacity_teu.toLocaleString()} TEU` : `${(v.dwt / 1000).toFixed(0)}k DWT`),
+    design_speed_knots: design_speed,
+    design_speed,
+    min_speed_knots: speed_min,
+    speed_min,
+    max_speed_knots: speed_max,
+    speed_max,
+    draft_design_m: draft,
+    draft,
+    engine_kw: power_kw,
+    power_kw,
+    sfoc_base_g_kwh: sfoc_base,
+    sfoc_base,
+    speed_exponent_n: hull_exponent,
+    hull_exponent,
+    fuel_compat: compatible_fuels,
+    compatible_fuels,
+    tank_capacities_tonnes,
+    tank_capacity_t,
+    ops_compatible: ops_capable,
+    ops_capable,
+    provenance: v.provenance ?? 'reported'
+  };
+};
+
+const normalizePort = (p: any): Port => {
+  const bunker_stocks = p.bunker_stock_tonnes ?? p.bunker_stocks ?? {
+    hfo: 30000,
+    mgo: 15000,
+    lng_fossil: 10000,
+    methanol_bio: 5000
+  };
+  return {
+    ...p,
+    unlocode: p.unlocode ?? p.port_id,
+    ops_available: !!p.ops_available,
+    ops_slots: p.ops_slots ?? (p.ops_available ? 4 : 0),
+    ops_price_per_kwh: p.ops_price_per_kwh ?? 0.22,
+    ops_cost_per_mwh: p.ops_cost_per_mwh ?? Math.round((p.ops_price_per_kwh || 0.22) * 1000),
+    ops_grid_ci_gco2_kwh: p.ops_grid_ci_gco2_kwh ?? p.ops_clean_grid_factor ?? 220,
+    bunker_stock_tonnes: bunker_stocks,
+    bunker_stocks,
+    provenance: p.provenance ?? 'reported'
+  };
+};
+
+const normalizeRoute = (r: any): Route => {
+  const dest_port_id = r.destination_port_id ?? r.dest_port_id ?? '';
+  const cargo_demand_dwt = r.demand_tonnes ?? r.cargo_demand_dwt ?? 50000;
+  const legs = (r.legs || []).map((leg: any, idx: number) => ({
+    ...leg,
+    leg_id: leg.leg_id ?? `LEG_${idx}`,
+    from_port_id: leg.from_port_id ?? leg.from_name ?? '',
+    to_port_id: leg.to_port_id ?? leg.to_name ?? '',
+    from_name: leg.from_port_id ?? leg.from_name ?? `Waypoint ${idx}`,
+    to_name: leg.to_port_id ?? leg.to_name ?? `Waypoint ${idx + 1}`,
+    depth_m: leg.depth_m ?? leg.min_depth_m ?? 35.0,
+    min_depth_m: leg.depth_m ?? leg.min_depth_m ?? 35.0,
+    in_eca: leg.in_eca ?? leg.is_eca ?? false,
+    is_eca: leg.in_eca ?? leg.is_eca ?? false,
+    weather_severity: leg.weather_severity ?? (leg.weather_summary?.significant_wave_height_m ? leg.weather_summary.significant_wave_height_m / 4.0 : 0.4)
+  }));
+
+  return {
+    ...r,
+    destination_port_id: dest_port_id,
+    dest_port_id,
+    demand_tonnes: cargo_demand_dwt,
+    cargo_demand_dwt,
+    legs,
+    provenance: r.provenance ?? 'reported'
+  };
+};
+
+const normalizeFuel = (f: any): FuelPathway => {
+  const price = f.price_per_tonne_usd ?? f.price_per_t ?? 680.0;
+  return {
+    ...f,
+    price_per_tonne_usd: price,
+    price_per_t: price,
+    category: f.category ?? f.feedstock ?? 'fossil',
+    feedstock: f.category ?? f.feedstock ?? 'fossil',
+    ttw_co2: f.ttw_co2 ?? f.ttw_co2_g_mj ?? 0.0,
+    ttw_co2_g_mj: f.ttw_co2_g_mj ?? f.ttw_co2 ?? 0.0,
+    ttw_ch4_slip: f.ttw_ch4_slip ?? f.ttw_ch4_slip_g_mj ?? 0.0,
+    ttw_ch4_slip_g_mj: f.ttw_ch4_slip_g_mj ?? f.ttw_ch4_slip ?? 0.0,
+    ttw_n2o: f.ttw_n2o ?? f.ttw_n2o_g_mj ?? 0.0,
+    ttw_n2o_g_mj: f.ttw_n2o_g_mj ?? f.ttw_n2o ?? 0.0,
+    tank_volume_penalty: f.tank_volume_penalty ?? 1.0,
+    wtw_gco2e_mj: f.wtw_gco2e_mj ?? 90.0,
+    provenance: f.provenance ?? 'reported'
+  };
+};
+
 class ApiService {
   private backendLive = false;
 
@@ -46,94 +155,68 @@ class ApiService {
     if (this.backendLive) {
       try {
         const res = await fetch(`${API_BASE_URL}/fuels`);
-        if (res.ok) return await res.json();
+        if (res.ok) {
+          const data = await res.json();
+          return (data as any[]).map(normalizeFuel);
+        }
       } catch (e) {
         console.warn('Backend fuels fetch failed, using cached catalog', e);
       }
     }
-    return (fuelsData as any[]).map(f => ({
-      ...f,
-      price_per_t: f.price_per_tonne_usd,
-      feedstock: f.category,
-      ttw_co2: f.ttw_co2_g_mj,
-      ttw_ch4_slip: f.ttw_ch4_slip_g_mj,
-      ttw_n2o: f.ttw_n2o_g_mj
-    }));
+    return (fuelsData as any[]).map(normalizeFuel);
   }
 
   async getVessels(): Promise<Vessel[]> {
     if (this.backendLive) {
       try {
         const res = await fetch(`${API_BASE_URL}/vessels`);
-        if (res.ok) return await res.json();
+        if (res.ok) {
+          const data = await res.json();
+          return (data as any[]).map(normalizeVessel);
+        }
       } catch (e) {
         console.warn('Backend vessels fetch failed, using cached vessels', e);
       }
     }
-    return (vesselsData as any[]).map(v => ({
-      ...v,
-      vessel_class: v.capacity_teu ? `${v.capacity_teu.toLocaleString()} TEU` : `${(v.dwt / 1000).toFixed(0)}k DWT`,
-      design_speed: v.design_speed_knots,
-      speed_min: v.min_speed_knots,
-      speed_max: v.max_speed_knots,
-      draft: v.draft_design_m,
-      power_kw: v.engine_kw,
-      sfoc_base: v.sfoc_base_g_kwh,
-      hull_exponent: v.speed_exponent_n,
-      compatible_fuels: v.fuel_compat || [],
-      tank_capacities_tonnes: v.tank_capacities_tonnes || {},
-      tank_capacity_t: v.tank_capacities_tonnes ? Math.max(...Object.values(v.tank_capacities_tonnes).map(Number)) : 3000,
-      ops_capable: !!v.ops_compatible
-    }));
+    return (vesselsData as any[]).map(normalizeVessel);
   }
 
   async getPorts(): Promise<Port[]> {
     if (this.backendLive) {
       try {
         const res = await fetch(`${API_BASE_URL}/ports`);
-        if (res.ok) return await res.json();
+        if (res.ok) {
+          const data = await res.json();
+          return (data as any[]).map(normalizePort);
+        }
       } catch (e) {
         console.warn('Backend ports fetch failed, using cached ports', e);
       }
     }
-    return (portsData as any[]).map(p => ({
-      ...p,
-      ops_slots: p.ops_available ? 4 : 0,
-      ops_cost_per_mwh: Math.round((p.ops_price_per_kwh || 0.22) * 1000),
-      ops_grid_ci_gco2_kwh: p.ops_clean_grid_factor || 220,
-      bunker_stocks: p.bunker_stock_tonnes || {}
-    }));
+    return (portsData as any[]).map(normalizePort);
   }
 
   async getRoutes(): Promise<Route[]> {
     if (this.backendLive) {
       try {
         const res = await fetch(`${API_BASE_URL}/routes`);
-        if (res.ok) return await res.json();
+        if (res.ok) {
+          const data = await res.json();
+          return (data as any[]).map(normalizeRoute);
+        }
       } catch (e) {
         console.warn('Backend routes fetch failed, using cached routes', e);
       }
     }
-    return (routesData as any[]).map(r => ({
-      ...r,
-      dest_port_id: r.destination_port_id,
-      cargo_demand_dwt: r.demand_tonnes,
-      legs: (r.legs || []).map((leg: any) => ({
-        ...leg,
-        from_name: leg.from_port_id,
-        to_name: leg.to_port_id,
-        min_depth_m: leg.depth_m,
-        is_eca: !!leg.in_eca,
-        weather_severity: leg.weather_summary?.significant_wave_height_m ? leg.weather_summary.significant_wave_height_m / 4.0 : 0.4
-      }))
-    }));
+    return (routesData as any[]).map(normalizeRoute);
   }
 
   async getScenarios(): Promise<Scenario[]> {
     return (scenariosData as any[]).map(sc => ({
       ...sc,
       description: `Operational perturbation: ${sc.scenario_type} with weather coefficient ${sc.weather_multiplier}x.`,
-      probability: 0.25
+      probability: 0.25,
+      provenance: sc.provenance ?? 'simulated'
     }));
   }
 

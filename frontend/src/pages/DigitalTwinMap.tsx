@@ -276,10 +276,10 @@ export const DigitalTwinMap: React.FC = () => {
                   Bunkering Fuel Reserves (Tonnes):
                 </span>
                 <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
-                  {Object.entries(selectedPort.bunker_stocks).map(([fuel, stock]) => (
+                  {Object.entries(selectedPort.bunker_stocks ?? {}).map(([fuel, stock]) => (
                     <div key={fuel} className="p-2 rounded bg-slate-900/80 border border-slate-800">
                       <div className="text-slate-400 truncate">{fuel}</div>
-                      <div className="text-cyan-300 font-bold mt-0.5">{stock.toLocaleString()} t</div>
+                      <div className="text-cyan-300 font-bold mt-0.5">{typeof stock === 'number' ? stock.toLocaleString() : String(stock)} t</div>
                     </div>
                   ))}
                 </div>
@@ -302,19 +302,19 @@ export const DigitalTwinMap: React.FC = () => {
               <div className="mt-4 space-y-2 text-xs font-mono">
                 <div className="flex justify-between py-1.5 border-b border-slate-800">
                   <span className="text-slate-400">Deadweight (DWT):</span>
-                  <span className="text-white">{selectedVessel.dwt.toLocaleString()} t</span>
+                  <span className="text-white">{selectedVessel.dwt ? selectedVessel.dwt.toLocaleString() : '—'} t</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-slate-800">
                   <span className="text-slate-400">Speed Limits:</span>
-                  <span className="text-cyan-300">{selectedVessel.speed_min} - {selectedVessel.speed_max} kts</span>
+                  <span className="text-cyan-300">{selectedVessel.speed_min ?? 11} - {selectedVessel.speed_max ?? 21} kts</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-slate-800">
                   <span className="text-slate-400">Hull Exponent (n):</span>
-                  <span className="text-amber-400">{selectedVessel.hull_exponent.toFixed(2)}</span>
+                  <span className="text-amber-400">{(selectedVessel.hull_exponent ?? 3.0).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-slate-800">
                   <span className="text-slate-400">Tank Capacity:</span>
-                  <span className="text-white">{selectedVessel.tank_capacity_t.toLocaleString()} t</span>
+                  <span className="text-white">{selectedVessel.tank_capacity_t ? selectedVessel.tank_capacity_t.toLocaleString() : '—'} t</span>
                 </div>
               </div>
             </div>

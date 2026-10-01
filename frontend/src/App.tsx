@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { Component, useState, useEffect, useRef, type ReactNode } from 'react';
 import { Navbar, type ScreenId } from './components/Navbar';
 import { FleetCommandCenter } from './pages/FleetCommandCenter';
 import { DigitalTwinMap } from './pages/DigitalTwinMap';
@@ -9,6 +9,47 @@ import { StormSimulator } from './pages/StormSimulator';
 import { VoyageReplay } from './pages/VoyageReplay';
 import { api } from './services/api';
 import { Sparkles } from 'lucide-react';
+
+interface ErrorBoundaryProps {
+  children: ReactNode;
+}
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: any) {
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="glass-panel p-8 rounded-2xl border border-cyan-500/40 text-center my-8 max-w-xl mx-auto">
+          <h2 className="text-xl font-bold text-white mb-2">Display Synchronization</h2>
+          <p className="text-xs font-mono text-slate-400 mb-4">{this.state.error?.message}</p>
+          <button
+            onClick={() => { this.setState({ hasError: false }); window.location.reload(); }}
+            className="px-4 py-2 bg-cyan-500 text-black text-xs font-mono font-bold rounded-xl"
+          >
+            Refresh View
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export function App() {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('command');
@@ -135,13 +176,15 @@ export function App() {
 
       {/* Main Screen Content */}
       <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 sm:p-6 lg:p-8">
-        {activeScreen === 'command' && <FleetCommandCenter onNavigate={setActiveScreen} />}
-        {activeScreen === 'twin-map' && <DigitalTwinMap />}
-        {activeScreen === 'fuels' && <FuelIntelligence />}
-        {activeScreen === 'telemetry' && <OptimizerTelemetry onNavigateToPareto={() => setActiveScreen('pareto')} />}
-        {activeScreen === 'pareto' && <ParetoExplorer />}
-        {activeScreen === 'storm' && <StormSimulator />}
-        {activeScreen === 'replay' && <VoyageReplay />}
+        <ErrorBoundary key={activeScreen}>
+          {activeScreen === 'command' && <FleetCommandCenter onNavigate={setActiveScreen} />}
+          {activeScreen === 'twin-map' && <DigitalTwinMap />}
+          {activeScreen === 'fuels' && <FuelIntelligence />}
+          {activeScreen === 'telemetry' && <OptimizerTelemetry onNavigateToPareto={() => setActiveScreen('pareto')} />}
+          {activeScreen === 'pareto' && <ParetoExplorer />}
+          {activeScreen === 'storm' && <StormSimulator />}
+          {activeScreen === 'replay' && <VoyageReplay />}
+        </ErrorBoundary>
       </main>
 
       {/* Bottom Footer */}
