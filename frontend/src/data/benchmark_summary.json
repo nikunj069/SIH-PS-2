@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "timestamp": "2026-10-01 20:22:10 UTC",
+    "eval_budget": 50,
+    "base_seed": 42,
+    "honesty_rule": "All metrics computed directly by experiments. No quantum advantage claimed."
+  },
+  "experiment_a_optimizer_comparison": {
+    "Greedy": {
+      "solutions_count": 1,
+      "feasible_count": 1,
+      "feasible_rate": 0.0,
+      "hypervolume": 0.0,
+      "best_cost_usd": 7523757.0,
+      "best_ghg_tonnes": 28783.4,
+      "wall_clock_seconds": 0.002
+    },
+    "Random Search": {
+      "solutions_count": 1,
+      "feasible_count": 1,
+      "feasible_rate": 98.0,
+      "hypervolume": 0.8563,
+      "best_cost_usd": 505379.0,
+      "best_ghg_tonnes": 711.6,
+      "wall_clock_seconds": 0.155
+    },
+    "GA": {
+      "solutions_count": 1,
+      "feasible_count": 1,
+      "feasible_rate": 100.0,
+      "hypervolume": 0.5564,
+      "best_cost_usd": 1449337.0,
+      "best_ghg_tonnes": 3247.4,
+      "wall_clock_seconds": 0.183
+    },
+    "NSGA-II": {
+      "solutions_count": 1,
+      "feasible_count": 1,
+      "feasible_rate": 100.0,
+      "hypervolume": 0.7037,
+      "best_cost_usd": 1188281.0,
+      "best_ghg_tonnes": 1153.8,
+      "wall_clock_seconds": 0.243
+    },
+    "QPSO": {
+      "solutions_count": 1,
+      "feasible_count": 1,
+      "feasible_rate": 100.0,
+      "hypervolume": 0.0091,
+      "best_cost_usd": 4399546.0,
+      "best_ghg_tonnes": 13860.3,
+      "wall_clock_seconds": 0.122
+    },
+    "QIGA": {
+      "solutions_count": 1,
+      "feasible_count": 1,
+      "feasible_rate": 100.0,
+      "hypervolume": 0.4233,
+      "best_cost_usd": 1804357.0,
+      "best_ghg_tonnes": 5065.5,
+      "wall_clock_seconds": 0.338
+    },
+    "Q-GREEN-Hybrid": {
+      "solutions_count": 3,
+      "feasible_count": 3,
+      "feasible_rate": 100.0,
+      "hypervolume": 0.1992,
+      "best_cost_usd": 2742063.0,
+      "best_ghg_tonnes": 8359.8,
+      "wall_clock_seconds": 0.357
+    }
+  },
+  "experiment_c_ablation_study": {
+    "Full Q-GREEN Hybrid": {
+      "hypervolume": 0.1992,
+      "best_cost_usd": 2742063.0,
+      "best_ghg_tonnes": 8359.8,
+      "wall_clock_seconds": 0.317
+    },
+    "Ablation: No QIGA (GA Discrete)": {
+      "hypervolume": 0.5564,
+      "best_cost_usd": 1449337.0,
+      "best_ghg_tonnes": 3247.4,
+      "wall_clock_seconds": 0.192
+    },
+    "Ablation: No QPSO (QIGA Only)": {
+      "hypervolume": 0.4233,
+      "best_cost_usd": 1804357.0,
+      "best_ghg_tonnes": 5065.5,
+      "wall_clock_seconds": 0.349
+    },
+    "Ablation: No Quantum Diversification": {
+      "hypervolume": 0.1992,
+      "best_cost_usd": 2742063.0,
+      "best_ghg_tonnes": 8359.8,
+      "wall_clock_seconds": 0.347
+    }
+  },
+  "experiment_d_sequential_vs_joint": {
+    "sequential": {
+      "cost_usd": 7523757.0,
+      "ghg_tonnes": 28783.4
+    },
+    "joint_qgreen": {
+      "cost_usd": 3129887.0,
+      "ghg_tonnes": 8359.8
+    },
+    "improvement_pct": {
+      "cost_reduction_pct": 58.4,
+      "ghg_reduction_pct": 70.96
+    }
+  },
+  "experiment_f_statistical_significance": {
+    "seeds": [
+      42,
+      101,
+      202,
+      303,
+      404
+    ],
+    "qgreen_hybrid": {
+      "mean_hv": 0.4863,
+      "std_hv": 0.3261,
+      "samples": [
+        0.1992,
+        0.0,
+        0.7188,
+        0.6777,
+        0.8357
+      ]
+    },
+    "nsga2": {
+      "mean_hv": 0.7035,
+      "std_hv": 0.2281,
+      "samples": [
+        0.7037,
+        0.9422,
+        0.3127,
+        0.919,
+        0.6401
+      ]
+    },
+    "wilcoxon_p_value": 0.4375
+  }
+}

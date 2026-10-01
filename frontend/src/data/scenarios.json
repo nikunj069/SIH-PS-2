@@ -1,0 +1,101 @@
+[
+  {
+    "scenario_id": "SCN_NOMINAL",
+    "name": "Nominal Baseline Conditions",
+    "scenario_type": "nominal",
+    "weather_multiplier": 1.0,
+    "port_delay_hours": {},
+    "fuel_price_multipliers": {},
+    "carbon_tax_usd_tonne": 85.0,
+    "bunker_outages": [],
+    "seed": 42,
+    "probability": 0.5,
+    "provenance": "simulated"
+  },
+  {
+    "scenario_id": "SCN_NORTH_STORM",
+    "name": "Severe North Atlantic / North Sea Winter Gale",
+    "scenario_type": "storm",
+    "weather_multiplier": 1.45,
+    "port_delay_hours": {
+      "NLRTM": 8.0,
+      "DEHAM": 6.0
+    },
+    "fuel_price_multipliers": {},
+    "carbon_tax_usd_tonne": 85.0,
+    "bunker_outages": [],
+    "seed": 101,
+    "probability": 0.15,
+    "provenance": "simulated"
+  },
+  {
+    "scenario_id": "SCN_PORT_CONGESTION",
+    "name": "Global Chokepoint & Hub Congestion Crisis",
+    "scenario_type": "congestion",
+    "weather_multiplier": 1.05,
+    "port_delay_hours": {
+      "SGSIN": 14.0,
+      "CNSHA": 18.0,
+      "USLAX": 22.0
+    },
+    "fuel_price_multipliers": {},
+    "carbon_tax_usd_tonne": 85.0,
+    "bunker_outages": [],
+    "seed": 202,
+    "probability": 0.15,
+    "provenance": "simulated"
+  },
+  {
+    "scenario_id": "SCN_FUEL_PRICE_SHOCK",
+    "name": "Bio-Feedstock Shortage & E-Fuel Cost Surge",
+    "scenario_type": "fuel_shock",
+    "weather_multiplier": 1.0,
+    "port_delay_hours": {},
+    "fuel_price_multipliers": {
+      "methanol_bio": 1.45,
+      "methanol_e": 1.35,
+      "lng_bio": 1.4,
+      "ammonia_green": 1.5
+    },
+    "carbon_tax_usd_tonne": 85.0,
+    "bunker_outages": [],
+    "seed": 303,
+    "probability": 0.1,
+    "provenance": "simulated"
+  },
+  {
+    "scenario_id": "SCN_CARBON_TAX_HIKE",
+    "name": "Accelerated EU ETS / IMO Global GHG Pricing ($160/t)",
+    "scenario_type": "carbon_shock",
+    "weather_multiplier": 1.0,
+    "port_delay_hours": {},
+    "fuel_price_multipliers": {},
+    "carbon_tax_usd_tonne": 160.0,
+    "bunker_outages": [],
+    "seed": 404,
+    "probability": 0.05,
+    "provenance": "simulated"
+  },
+  {
+    "scenario_id": "SCN_BUNKER_OUTAGE",
+    "name": "Alternative Fuel Stockout at Key Hubs",
+    "scenario_type": "bunker_outage",
+    "weather_multiplier": 1.0,
+    "port_delay_hours": {},
+    "fuel_price_multipliers": {},
+    "carbon_tax_usd_tonne": 85.0,
+    "bunker_outages": [
+      [
+        "NLRTM",
+        "methanol_e"
+      ],
+      [
+        "SGSIN",
+        "ammonia_green"
+      ]
+    ],
+    "seed": 505,
+    "probability": 0.05,
+    "provenance": "simulated"
+  }
+]

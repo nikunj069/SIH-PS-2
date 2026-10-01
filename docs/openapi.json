@@ -1,0 +1,1481 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Q-GREEN FLEET API",
+    "description": "Adaptive Maritime Digital Twin & Classical Quantum-Inspired Multi-Objective Fleet Optimizer API",
+    "version": "0.2.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Health Check",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fuels": {
+      "get": {
+        "tags": [
+          "Fleet Catalog"
+        ],
+        "summary": "List Fuels",
+        "description": "Return all verified Well-to-Wake fuel pathways with LCA emission intensities.",
+        "operationId": "list_fuels_fuels_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FuelPathway"
+                  },
+                  "type": "array",
+                  "title": "Response List Fuels Fuels Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vessels": {
+      "get": {
+        "tags": [
+          "Fleet Catalog"
+        ],
+        "summary": "List Vessels",
+        "description": "Return operational fleet vessel specifications.",
+        "operationId": "list_vessels_vessels_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Vessel"
+                  },
+                  "type": "array",
+                  "title": "Response List Vessels Vessels Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ports": {
+      "get": {
+        "tags": [
+          "Fleet Catalog"
+        ],
+        "summary": "List Ports",
+        "description": "Return global ports with OPS availability and bunker inventory.",
+        "operationId": "list_ports_ports_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Port"
+                  },
+                  "type": "array",
+                  "title": "Response List Ports Ports Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routes": {
+      "get": {
+        "tags": [
+          "Fleet Catalog"
+        ],
+        "summary": "List Routes",
+        "description": "Return strategic routes, waypoints, bathymetry, and ECA segments.",
+        "operationId": "list_routes_routes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Route"
+                  },
+                  "type": "array",
+                  "title": "Response List Routes Routes Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/predict/fuel": {
+      "post": {
+        "tags": [
+          "Prediction"
+        ],
+        "summary": "Predict Fuel",
+        "description": "Predict leg fuel consumption with calibrated p10/p50/p90 quantile uncertainty.",
+        "operationId": "predict_fuel_predict_fuel_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/FuelPredictionInput"
+                },
+                "type": "array",
+                "title": "Inputs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Quantiles"
+                  },
+                  "type": "array",
+                  "title": "Response Predict Fuel Predict Fuel Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/optimize": {
+      "post": {
+        "tags": [
+          "Optimization"
+        ],
+        "summary": "Start Optimization",
+        "description": "Launch asynchronous multi-objective fleet optimization run.",
+        "operationId": "start_optimization_optimize_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OptimizeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimizeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/optimize/{run_id}": {
+      "get": {
+        "tags": [
+          "Optimization"
+        ],
+        "summary": "Get Optimization Status",
+        "description": "Retrieve run status, telemetry, and non-dominated Pareto archive.",
+        "operationId": "get_optimization_status_optimize__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reoptimize": {
+      "post": {
+        "tags": [
+          "Optimization"
+        ],
+        "summary": "Reoptimize Disruption",
+        "description": "Warm-start re-optimization from prior Pareto archive under sudden disruption.",
+        "operationId": "reoptimize_disruption_reoptimize_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReoptimizeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimizeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/explain/{plan_id}": {
+      "get": {
+        "tags": [
+          "Explainability"
+        ],
+        "summary": "Explain Plan",
+        "description": "Return templated, factual mathematical rationale for why this plan was chosen.",
+        "operationId": "explain_plan_explain__plan_id__get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExplainabilityResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/replay/{voyage_id}": {
+      "get": {
+        "tags": [
+          "Digital Twin"
+        ],
+        "summary": "Replay Voyage",
+        "description": "Compare historical / baseline voyage against counterfactual model-optimized execution.",
+        "operationId": "replay_voyage_replay__voyage_id__get",
+        "parameters": [
+          {
+            "name": "voyage_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Voyage Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoyageReplayResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DigitalTwinState": {
+        "properties": {
+          "vessels": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Vessel"
+            },
+            "type": "object",
+            "title": "Vessels"
+          },
+          "ports": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Port"
+            },
+            "type": "object",
+            "title": "Ports"
+          },
+          "routes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Route"
+            },
+            "type": "object",
+            "title": "Routes"
+          },
+          "fuel_catalog": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FuelPathway"
+            },
+            "type": "object",
+            "title": "Fuel Catalog"
+          },
+          "current_time_epoch_h": {
+            "type": "number",
+            "title": "Current Time Epoch H",
+            "default": 0.0
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "default": "simulated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "vessels",
+          "ports",
+          "routes",
+          "fuel_catalog"
+        ],
+        "title": "DigitalTwinState",
+        "description": "Snapshot of the maritime operational environment."
+      },
+      "ExplainabilityResponse": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "why_this_plan": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Why This Plan"
+          },
+          "why_not_counterfactuals": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Why Not Counterfactuals"
+          },
+          "tradeoff_summary": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Tradeoff Summary"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "default": "simulated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "plan_id",
+          "why_this_plan",
+          "why_not_counterfactuals",
+          "tradeoff_summary"
+        ],
+        "title": "ExplainabilityResponse"
+      },
+      "FuelPathway": {
+        "properties": {
+          "pathway_id": {
+            "type": "string",
+            "title": "Pathway Id",
+            "description": "Unique pathway ID, e.g. methanol_e, ammonia_green, hfo, mgo"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Descriptive fuel name and feedstock pathway"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category",
+            "description": "Pathway category: fossil, bio, e-fuel, blue, zero_carbon"
+          },
+          "energy_density_mj_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Energy Density Mj Kg",
+            "description": "Lower Heating Value (LHV) in MJ per kg fuel"
+          },
+          "price_per_tonne_usd": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Price Per Tonne Usd",
+            "description": "Spot/contract bunker price in USD per metric tonne"
+          },
+          "wtt_gco2e_mj": {
+            "type": "number",
+            "title": "Wtt Gco2E Mj",
+            "description": "Well-to-Tank (upstream extraction, production, transport) GHG intensity in gCO2e/MJ"
+          },
+          "ttw_co2_g_mj": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Ttw Co2 G Mj",
+            "description": "Tank-to-Wake direct combustion CO2 emissions in gCO2/MJ"
+          },
+          "ttw_ch4_slip_g_mj": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Ttw Ch4 Slip G Mj",
+            "description": "Tank-to-Wake methane (CH4) unburned slip in gCH4/MJ",
+            "default": 0.0
+          },
+          "ttw_n2o_g_mj": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Ttw N2O G Mj",
+            "description": "Tank-to-Wake nitrous oxide (N2O) emissions in gN2O/MJ",
+            "default": 0.0
+          },
+          "gwp_ch4": {
+            "type": "number",
+            "title": "Gwp Ch4",
+            "description": "Global Warming Potential of methane over 100-year horizon",
+            "default": 28.0
+          },
+          "gwp_n2o": {
+            "type": "number",
+            "title": "Gwp N2O",
+            "description": "Global Warming Potential of nitrous oxide over 100-year horizon",
+            "default": 265.0
+          },
+          "wtw_gco2e_mj": {
+            "type": "number",
+            "title": "Wtw Gco2E Mj",
+            "description": "Total aggregated Well-to-Wake GHG intensity: WtT + TtW_CO2 + (GWP_CH4 * CH4) + (GWP_N2O * N2O)"
+          },
+          "tank_volume_penalty": {
+            "type": "number",
+            "minimum": 0.5,
+            "title": "Tank Volume Penalty",
+            "description": "Storage volume multiplier relative to standard HFO (e.g. 2.1 for methanol, 2.4 for ammonia)",
+            "default": 1.0
+          },
+          "bunker_availability_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Bunker Availability Score",
+            "description": "Global port bunkering readiness score [0.0 - 1.0]"
+          },
+          "compat_engine_types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Compat Engine Types",
+            "description": "Compatible marine internal combustion engine / fuel cell types"
+          },
+          "source_ref": {
+            "type": "string",
+            "title": "Source Ref",
+            "description": "Official reference citation, e.g. IMO MEPC.391(81) Table 2 or GREET 2023"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "description": "Data provenance (e.g. REPORTED if from IMO LCA, ESTIMATED if derived)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pathway_id",
+          "name",
+          "category",
+          "energy_density_mj_kg",
+          "price_per_tonne_usd",
+          "wtt_gco2e_mj",
+          "ttw_co2_g_mj",
+          "wtw_gco2e_mj",
+          "bunker_availability_score",
+          "compat_engine_types",
+          "source_ref",
+          "provenance"
+        ],
+        "title": "FuelPathway",
+        "description": "Specification of a fuel pathway with full Well-to-Wake (WtW) lifecycle GHG intensity."
+      },
+      "FuelPredictionInput": {
+        "properties": {
+          "vessel_id": {
+            "type": "string",
+            "title": "Vessel Id"
+          },
+          "speed_knots": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Speed Knots"
+          },
+          "draft_m": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Draft M"
+          },
+          "displacement_tonnes": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Displacement Tonnes"
+          },
+          "wave_height_m": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Wave Height M",
+            "default": 1.5
+          },
+          "wind_speed_knots": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Wind Speed Knots",
+            "default": 12.0
+          },
+          "relative_wind_angle_deg": {
+            "type": "number",
+            "maximum": 360.0,
+            "minimum": 0.0,
+            "title": "Relative Wind Angle Deg",
+            "default": 0.0
+          },
+          "current_knots": {
+            "type": "number",
+            "title": "Current Knots",
+            "default": 0.0
+          },
+          "pathway_id": {
+            "type": "string",
+            "title": "Pathway Id",
+            "default": "hfo"
+          },
+          "duration_hours": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Duration Hours"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "default": "estimated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "vessel_id",
+          "speed_knots",
+          "draft_m",
+          "displacement_tonnes",
+          "duration_hours"
+        ],
+        "title": "FuelPredictionInput",
+        "description": "Input parameters for a single leg or segment fuel prediction."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Leg": {
+        "properties": {
+          "leg_id": {
+            "type": "string",
+            "title": "Leg Id",
+            "description": "Unique leg identifier, e.g. LEG_NLRTM_SGSIN_01"
+          },
+          "from_port_id": {
+            "type": "string",
+            "title": "From Port Id",
+            "description": "Origin port ID or waypoint"
+          },
+          "to_port_id": {
+            "type": "string",
+            "title": "To Port Id",
+            "description": "Destination port ID or waypoint"
+          },
+          "distance_nm": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Distance Nm",
+            "description": "Nautical miles for this leg"
+          },
+          "depth_m": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Depth M",
+            "description": "Minimum water depth on navigation fairway in meters"
+          },
+          "in_eca": {
+            "type": "boolean",
+            "title": "In Eca",
+            "description": "Whether this leg falls inside an IMO Emission Control Area (SOx/NOx)",
+            "default": false
+          },
+          "baseline_eta_h": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Baseline Eta H",
+            "description": "Baseline transit duration at design speed in hours"
+          },
+          "weather_summary": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Weather Summary",
+            "description": "Environmental parameters along the leg segment"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "description": "Data provenance of leg geometry and bathymetry"
+          }
+        },
+        "type": "object",
+        "required": [
+          "leg_id",
+          "from_port_id",
+          "to_port_id",
+          "distance_nm",
+          "depth_m",
+          "baseline_eta_h",
+          "provenance"
+        ],
+        "title": "Leg",
+        "description": "Segment between two sequential waypoints or ports."
+      },
+      "OptimizeRequest": {
+        "properties": {
+          "problem": {
+            "$ref": "#/components/schemas/ProblemDefinition"
+          },
+          "algorithm": {
+            "type": "string",
+            "title": "Algorithm",
+            "description": "Optimizer: Q-GREEN-Hybrid, NSGA-II, QPSO, QIGA, GA, PSO, Greedy",
+            "default": "Q-GREEN-Hybrid"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed",
+            "default": 42
+          },
+          "eval_budget": {
+            "type": "integer",
+            "title": "Eval Budget",
+            "default": 2000
+          }
+        },
+        "type": "object",
+        "required": [
+          "problem"
+        ],
+        "title": "OptimizeRequest"
+      },
+      "OptimizeResponse": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "algorithm": {
+            "type": "string",
+            "title": "Algorithm"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed"
+          },
+          "eval_budget": {
+            "type": "integer",
+            "title": "Eval Budget"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "default": "simulated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "status",
+          "algorithm",
+          "seed",
+          "eval_budget"
+        ],
+        "title": "OptimizeResponse"
+      },
+      "Port": {
+        "properties": {
+          "port_id": {
+            "type": "string",
+            "title": "Port Id",
+            "description": "Unique port code or UN/LOCODE, e.g. NLRTM"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Port official name"
+          },
+          "unlocode": {
+            "type": "string",
+            "title": "Unlocode",
+            "description": "UN/LOCODE 5-character string"
+          },
+          "lat": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat",
+            "description": "Latitude in decimal degrees"
+          },
+          "lon": {
+            "type": "number",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lon",
+            "description": "Longitude in decimal degrees"
+          },
+          "max_draft_m": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Max Draft M",
+            "description": "Maximum allowable approach and berth draft in meters"
+          },
+          "ops_available": {
+            "type": "boolean",
+            "title": "Ops Available",
+            "description": "Whether Onshore Power Supply (OPS/cold-ironing) is operational",
+            "default": false
+          },
+          "ops_price_per_kwh": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Ops Price Per Kwh",
+            "description": "Electricity price per kWh for cold ironing (USD)",
+            "default": 0.25
+          },
+          "ops_clean_grid_factor": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Ops Clean Grid Factor",
+            "description": "Regional grid carbon intensity in gCO2e/kWh",
+            "default": 220.0
+          },
+          "bunker_stock_tonnes": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Bunker Stock Tonnes",
+            "description": "Available stock per fuel pathway (tonnes)"
+          },
+          "bunker_price_spread": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Bunker Price Spread",
+            "description": "Price multiplier relative to global spot baseline"
+          },
+          "congestion_delay_mean_h": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Congestion Delay Mean H",
+            "description": "Expected berth waiting time in hours",
+            "default": 4.0
+          },
+          "congestion_delay_std_h": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Congestion Delay Std H",
+            "description": "Congestion delay standard deviation in hours",
+            "default": 2.0
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "description": "Data provenance of port parameters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "port_id",
+          "name",
+          "unlocode",
+          "lat",
+          "lon",
+          "max_draft_m",
+          "provenance"
+        ],
+        "title": "Port",
+        "description": "Port node in the maritime logistics network."
+      },
+      "ProblemDefinition": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "default": "Standard-Fleet-Dispatch"
+          },
+          "twin_state": {
+            "$ref": "#/components/schemas/DigitalTwinState"
+          },
+          "active_scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/Scenario"
+            },
+            "type": "array",
+            "title": "Active Scenarios"
+          },
+          "budget_evals": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Budget Evals",
+            "default": 2000
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed",
+            "default": 42
+          },
+          "weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Weights"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "default": "synthetic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "twin_state",
+          "active_scenarios"
+        ],
+        "title": "ProblemDefinition",
+        "description": "Self-contained optimization problem instance."
+      },
+      "Provenance": {
+        "type": "string",
+        "enum": [
+          "measured",
+          "reported",
+          "estimated",
+          "simulated",
+          "synthetic"
+        ],
+        "title": "Provenance",
+        "description": "Provenance tracking for transparency and auditability."
+      },
+      "Quantiles": {
+        "properties": {
+          "p10": {
+            "type": "number",
+            "title": "P10",
+            "description": "10th percentile conservative lower bound"
+          },
+          "p50": {
+            "type": "number",
+            "title": "P50",
+            "description": "50th percentile median expected estimate"
+          },
+          "p90": {
+            "type": "number",
+            "title": "P90",
+            "description": "90th percentile upper bound for robust worst-case"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "description": "Nominal confidence coverage [p10, p90]",
+            "default": 0.8
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "default": "estimated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "p10",
+          "p50",
+          "p90"
+        ],
+        "title": "Quantiles",
+        "description": "Calibrated quantile predictions with conformal uncertainty bands."
+      },
+      "ReoptimizeRequest": {
+        "properties": {
+          "prior_run_id": {
+            "type": "string",
+            "title": "Prior Run Id"
+          },
+          "disruption_scenario": {
+            "$ref": "#/components/schemas/Scenario"
+          },
+          "warm_start_archive_size": {
+            "type": "integer",
+            "title": "Warm Start Archive Size",
+            "default": 20
+          },
+          "eval_budget": {
+            "type": "integer",
+            "title": "Eval Budget",
+            "default": 1000
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed",
+            "default": 42
+          }
+        },
+        "type": "object",
+        "required": [
+          "prior_run_id",
+          "disruption_scenario"
+        ],
+        "title": "ReoptimizeRequest"
+      },
+      "Route": {
+        "properties": {
+          "route_id": {
+            "type": "string",
+            "title": "Route Id",
+            "description": "Unique route identifier, e.g. RTE_EUR_ASIA_01"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Human-readable corridor name"
+          },
+          "origin_port_id": {
+            "type": "string",
+            "title": "Origin Port Id",
+            "description": "Initial departure port"
+          },
+          "destination_port_id": {
+            "type": "string",
+            "title": "Destination Port Id",
+            "description": "Final arrival port"
+          },
+          "legs": {
+            "items": {
+              "$ref": "#/components/schemas/Leg"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Legs",
+            "description": "Sequential legs composing the voyage"
+          },
+          "total_distance_nm": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Total Distance Nm",
+            "description": "Total nautical miles across all legs"
+          },
+          "demand_tonnes": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Demand Tonnes",
+            "description": "Nominal cargo volume to transport on this service (tonnes)",
+            "default": 15000.0
+          },
+          "deadline_hours": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Deadline Hours",
+            "description": "Commercial contractual deadline in hours from departure"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "description": "Data provenance of route specifications"
+          }
+        },
+        "type": "object",
+        "required": [
+          "route_id",
+          "name",
+          "origin_port_id",
+          "destination_port_id",
+          "legs",
+          "total_distance_nm",
+          "deadline_hours",
+          "provenance"
+        ],
+        "title": "Route",
+        "description": "Complete maritime service corridor consisting of one or more sequential legs."
+      },
+      "Scenario": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id",
+            "description": "Unique scenario identifier, e.g. SCN_STORM_001"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Human-readable scenario title"
+          },
+          "scenario_type": {
+            "$ref": "#/components/schemas/ScenarioType",
+            "description": "Classification of the disruption",
+            "default": "nominal"
+          },
+          "weather_multiplier": {
+            "type": "number",
+            "maximum": 3.0,
+            "minimum": 0.5,
+            "title": "Weather Multiplier",
+            "description": "Multiplier on wave/wind added resistance",
+            "default": 1.0
+          },
+          "port_delay_hours": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Port Delay Hours",
+            "description": "Port ID to added berth delay hours"
+          },
+          "fuel_price_multipliers": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Fuel Price Multipliers",
+            "description": "Pathway ID to price surge multiplier"
+          },
+          "carbon_tax_usd_tonne": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Carbon Tax Usd Tonne",
+            "description": "ETS / IMO carbon tax price in USD per tonne CO2e",
+            "default": 80.0
+          },
+          "bunker_outages": {
+            "items": {
+              "prefixItems": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2
+            },
+            "type": "array",
+            "title": "Bunker Outages",
+            "description": "List of (port_id, pathway_id) pairs experiencing temporary supply stockouts"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed",
+            "description": "RNG seed used to generate this scenario",
+            "default": 42
+          },
+          "probability": {
+            "type": "number",
+            "maximum": 1.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Probability",
+            "description": "Monte Carlo weighting / scenario probability",
+            "default": 1.0
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "description": "Data provenance of scenario parameters",
+            "default": "simulated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "name"
+        ],
+        "title": "Scenario",
+        "description": "An operational scenario realization with environmental, market, and port modifiers."
+      },
+      "ScenarioType": {
+        "type": "string",
+        "enum": [
+          "nominal",
+          "storm",
+          "congestion",
+          "fuel_shock",
+          "carbon_shock",
+          "demand_shock",
+          "bunker_outage"
+        ],
+        "title": "ScenarioType",
+        "description": "Categories of operational uncertainties and disruptions."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Vessel": {
+        "properties": {
+          "vessel_id": {
+            "type": "string",
+            "title": "Vessel Id",
+            "description": "Unique vessel identifier, e.g. IMO9811000"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Vessel commercial name"
+          },
+          "vessel_type": {
+            "type": "string",
+            "title": "Vessel Type",
+            "description": "Vessel type: Container, Bulk Carrier, Tanker"
+          },
+          "dwt": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Dwt",
+            "description": "Deadweight tonnage in metric tonnes"
+          },
+          "capacity_teu": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capacity Teu",
+            "description": "Container capacity in Twenty-foot Equivalent Units"
+          },
+          "design_speed_knots": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Design Speed Knots",
+            "description": "Design operational speed in knots"
+          },
+          "min_speed_knots": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Min Speed Knots",
+            "description": "Minimum safe maneuvering/governed speed in knots"
+          },
+          "max_speed_knots": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Max Speed Knots",
+            "description": "Maximum continuous rating speed in knots"
+          },
+          "draft_design_m": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Draft Design M",
+            "description": "Design summer draft in meters"
+          },
+          "engine_kw": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Engine Kw",
+            "description": "Main engine Maximum Continuous Rating (MCR) in kW"
+          },
+          "sfoc_base_g_kwh": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Sfoc Base G Kwh",
+            "description": "Baseline Specific Fuel Oil Consumption in g/kWh at 75% MCR"
+          },
+          "speed_exponent_n": {
+            "type": "number",
+            "exclusiveMaximum": 4.5,
+            "exclusiveMinimum": 1.5,
+            "title": "Speed Exponent N",
+            "description": "Calibrated speed-power exponent for physics baseline (P ~ v^n)",
+            "default": 3.0
+          },
+          "admiralty_coefficient": {
+            "type": "number",
+            "exclusiveMinimum": 100.0,
+            "title": "Admiralty Coefficient",
+            "description": "Admiralty coefficient baseline for the hull form",
+            "default": 450.0
+          },
+          "fuel_compat": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Fuel Compat",
+            "description": "Compatible fuel pathway IDs (e.g. hfo, mgo, methanol_e)"
+          },
+          "tank_capacities_tonnes": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Tank Capacities Tonnes",
+            "description": "Fuel bunker capacity per compatible fuel type in metric tonnes"
+          },
+          "ops_compatible": {
+            "type": "boolean",
+            "title": "Ops Compatible",
+            "description": "Whether onshore power supply (cold-ironing) equipment is fitted",
+            "default": false
+          },
+          "ops_power_kw": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Ops Power Kw",
+            "description": "Auxiliary electric load demanded when berthed at port (kW)",
+            "default": 800.0
+          },
+          "hull_factor": {
+            "type": "number",
+            "maximum": 2.0,
+            "minimum": 0.8,
+            "title": "Hull Factor",
+            "description": "Hull fouling degradation factor (1.0 = clean, >1.0 = fouled)",
+            "default": 1.0
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "description": "Data provenance of vessel specifications"
+          }
+        },
+        "type": "object",
+        "required": [
+          "vessel_id",
+          "name",
+          "vessel_type",
+          "dwt",
+          "design_speed_knots",
+          "min_speed_knots",
+          "max_speed_knots",
+          "draft_design_m",
+          "engine_kw",
+          "sfoc_base_g_kwh",
+          "fuel_compat",
+          "tank_capacities_tonnes",
+          "provenance"
+        ],
+        "title": "Vessel",
+        "description": "Specification of a commercial cargo vessel in the fleet."
+      },
+      "VoyageReplayResponse": {
+        "properties": {
+          "voyage_id": {
+            "type": "string",
+            "title": "Voyage Id"
+          },
+          "vessel_id": {
+            "type": "string",
+            "title": "Vessel Id"
+          },
+          "route_id": {
+            "type": "string",
+            "title": "Route Id"
+          },
+          "actual_timeline": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Actual Timeline"
+          },
+          "counterfactual_optimal_timeline": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Counterfactual Optimal Timeline"
+          },
+          "delta_metrics": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Delta Metrics"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance",
+            "default": "estimated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "voyage_id",
+          "vessel_id",
+          "route_id",
+          "actual_timeline",
+          "counterfactual_optimal_timeline",
+          "delta_metrics"
+        ],
+        "title": "VoyageReplayResponse"
+      }
+    }
+  }
+}

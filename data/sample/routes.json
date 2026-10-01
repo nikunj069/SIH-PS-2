@@ -1,0 +1,166 @@
+[
+  {
+    "route_id": "RTE_ASIA_EUR_01",
+    "name": "Asia-Europe Mega Loop (Shanghai to Rotterdam)",
+    "origin_port_id": "CNSHA",
+    "destination_port_id": "NLRTM",
+    "total_distance_nm": 10500.0,
+    "demand_tonnes": 85000.0,
+    "deadline_hours": 620.0,
+    "legs": [
+      {
+        "leg_id": "LEG_CNSHA_SGSIN",
+        "from_port_id": "CNSHA",
+        "to_port_id": "SGSIN",
+        "distance_nm": 2250.0,
+        "depth_m": 35.0,
+        "in_eca": false,
+        "baseline_eta_h": 125.0,
+        "weather_summary": {
+          "significant_wave_height_m": 1.6,
+          "wind_speed_knots": 12.0,
+          "relative_wind_angle_deg": 30.0,
+          "current_speed_knots": 0.4
+        },
+        "provenance": "reported"
+      },
+      {
+        "leg_id": "LEG_SGSIN_AEJEA",
+        "from_port_id": "SGSIN",
+        "to_port_id": "AEJEA",
+        "distance_nm": 3300.0,
+        "depth_m": 60.0,
+        "in_eca": false,
+        "baseline_eta_h": 185.0,
+        "weather_summary": {
+          "significant_wave_height_m": 1.8,
+          "wind_speed_knots": 14.0,
+          "relative_wind_angle_deg": 40.0,
+          "current_speed_knots": 0.2
+        },
+        "provenance": "reported"
+      },
+      {
+        "leg_id": "LEG_AEJEA_GRPIR",
+        "from_port_id": "AEJEA",
+        "to_port_id": "GRPIR",
+        "distance_nm": 3000.0,
+        "depth_m": 45.0,
+        "in_eca": false,
+        "baseline_eta_h": 168.0,
+        "weather_summary": {
+          "significant_wave_height_m": 1.4,
+          "wind_speed_knots": 10.0,
+          "relative_wind_angle_deg": 15.0,
+          "current_speed_knots": 0.1
+        },
+        "provenance": "reported"
+      },
+      {
+        "leg_id": "LEG_GRPIR_NLRTM",
+        "from_port_id": "GRPIR",
+        "to_port_id": "NLRTM",
+        "distance_nm": 1950.0,
+        "depth_m": 30.0,
+        "in_eca": true,
+        "baseline_eta_h": 110.0,
+        "weather_summary": {
+          "significant_wave_height_m": 2.2,
+          "wind_speed_knots": 18.0,
+          "relative_wind_angle_deg": 50.0,
+          "current_speed_knots": 0.6
+        },
+        "provenance": "reported"
+      }
+    ],
+    "provenance": "reported"
+  },
+  {
+    "route_id": "RTE_TRANSPAC_01",
+    "name": "Transpacific Express (Shanghai to Los Angeles)",
+    "origin_port_id": "CNSHA",
+    "destination_port_id": "USLAX",
+    "total_distance_nm": 5700.0,
+    "demand_tonnes": 65000.0,
+    "deadline_hours": 330.0,
+    "legs": [
+      {
+        "leg_id": "LEG_CNSHA_MIDPAC",
+        "from_port_id": "CNSHA",
+        "to_port_id": "WAYPOINT_MIDPAC",
+        "distance_nm": 2850.0,
+        "depth_m": 2000.0,
+        "in_eca": false,
+        "baseline_eta_h": 158.0,
+        "weather_summary": {
+          "significant_wave_height_m": 2.5,
+          "wind_speed_knots": 19.0,
+          "relative_wind_angle_deg": 60.0,
+          "current_speed_knots": 0.3
+        },
+        "provenance": "reported"
+      },
+      {
+        "leg_id": "LEG_MIDPAC_USLAX",
+        "from_port_id": "WAYPOINT_MIDPAC",
+        "to_port_id": "USLAX",
+        "distance_nm": 2850.0,
+        "depth_m": 1500.0,
+        "in_eca": true,
+        "baseline_eta_h": 158.0,
+        "weather_summary": {
+          "significant_wave_height_m": 2.0,
+          "wind_speed_knots": 16.0,
+          "relative_wind_angle_deg": 45.0,
+          "current_speed_knots": 0.2
+        },
+        "provenance": "reported"
+      }
+    ],
+    "provenance": "reported"
+  },
+  {
+    "route_id": "RTE_INTRA_EUR_01",
+    "name": "North Sea Green Feeder Corridor",
+    "origin_port_id": "NLRTM",
+    "destination_port_id": "DEHAM",
+    "total_distance_nm": 520.0,
+    "demand_tonnes": 18000.0,
+    "deadline_hours": 42.0,
+    "legs": [
+      {
+        "leg_id": "LEG_NLRTM_BEANR",
+        "from_port_id": "NLRTM",
+        "to_port_id": "BEANR",
+        "distance_nm": 85.0,
+        "depth_m": 16.0,
+        "in_eca": true,
+        "baseline_eta_h": 6.5,
+        "weather_summary": {
+          "significant_wave_height_m": 1.2,
+          "wind_speed_knots": 12.0,
+          "relative_wind_angle_deg": 25.0,
+          "current_speed_knots": 0.8
+        },
+        "provenance": "reported"
+      },
+      {
+        "leg_id": "LEG_BEANR_DEHAM",
+        "from_port_id": "BEANR",
+        "to_port_id": "DEHAM",
+        "distance_nm": 435.0,
+        "depth_m": 20.0,
+        "in_eca": true,
+        "baseline_eta_h": 32.0,
+        "weather_summary": {
+          "significant_wave_height_m": 1.7,
+          "wind_speed_knots": 15.0,
+          "relative_wind_angle_deg": 35.0,
+          "current_speed_knots": 0.7
+        },
+        "provenance": "reported"
+      }
+    ],
+    "provenance": "reported"
+  }
+]

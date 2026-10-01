@@ -1,0 +1,216 @@
+[
+  {
+    "pathway_id": "hfo",
+    "name": "Heavy Fuel Oil (0.5% VLSFO Baseline)",
+    "category": "fossil",
+    "energy_density_mj_kg": 40.2,
+    "price_per_tonne_usd": 580.0,
+    "wtt_gco2e_mj": 13.5,
+    "ttw_co2_g_mj": 77.4,
+    "ttw_ch4_slip_g_mj": 0.0,
+    "ttw_n2o_g_mj": 0.004,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 92.0,
+    "tank_volume_penalty": 1.0,
+    "bunker_availability_score": 0.98,
+    "compat_engine_types": [
+      "Standard 2-Stroke",
+      "Standard 4-Stroke"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 2 (Baseline)",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "mgo",
+    "name": "Marine Gas Oil (0.10% S Distillate)",
+    "category": "fossil",
+    "energy_density_mj_kg": 42.7,
+    "price_per_tonne_usd": 820.0,
+    "wtt_gco2e_mj": 14.4,
+    "ttw_co2_g_mj": 74.5,
+    "ttw_ch4_slip_g_mj": 0.0,
+    "ttw_n2o_g_mj": 0.004,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 90.0,
+    "tank_volume_penalty": 0.98,
+    "bunker_availability_score": 0.99,
+    "compat_engine_types": [
+      "Standard 2-Stroke",
+      "Standard 4-Stroke",
+      "Dual-Fuel LNG",
+      "Dual-Fuel Methanol"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 2 (ECA Compliant)",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "lng_fossil",
+    "name": "Liquefied Natural Gas (Fossil Otto Cycle)",
+    "category": "fossil",
+    "energy_density_mj_kg": 49.1,
+    "price_per_tonne_usd": 750.0,
+    "wtt_gco2e_mj": 18.5,
+    "ttw_co2_g_mj": 56.1,
+    "ttw_ch4_slip_g_mj": 0.55,
+    "ttw_n2o_g_mj": 0.001,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 90.3,
+    "tank_volume_penalty": 1.4,
+    "bunker_availability_score": 0.65,
+    "compat_engine_types": [
+      "Dual-Fuel LNG"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 3",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "lng_bio",
+    "name": "Liquefied Biomethane (Bio-LNG from Organic Residues)",
+    "category": "bio",
+    "energy_density_mj_kg": 49.1,
+    "price_per_tonne_usd": 1380.0,
+    "wtt_gco2e_mj": 12.0,
+    "ttw_co2_g_mj": 0.0,
+    "ttw_ch4_slip_g_mj": 0.5,
+    "ttw_n2o_g_mj": 0.001,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 26.3,
+    "tank_volume_penalty": 1.4,
+    "bunker_availability_score": 0.35,
+    "compat_engine_types": [
+      "Dual-Fuel LNG"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 3",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "methanol_grey",
+    "name": "Grey Methanol (Natural Gas Steam Reforming)",
+    "category": "fossil",
+    "energy_density_mj_kg": 19.9,
+    "price_per_tonne_usd": 430.0,
+    "wtt_gco2e_mj": 31.0,
+    "ttw_co2_g_mj": 68.9,
+    "ttw_ch4_slip_g_mj": 0.0,
+    "ttw_n2o_g_mj": 0.0,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 99.9,
+    "tank_volume_penalty": 2.1,
+    "bunker_availability_score": 0.45,
+    "compat_engine_types": [
+      "Dual-Fuel Methanol"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 4 (High Upstream Footprint)",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "methanol_bio",
+    "name": "Bio-Methanol (Forestry & Black Liquor Residues)",
+    "category": "bio",
+    "energy_density_mj_kg": 19.9,
+    "price_per_tonne_usd": 890.0,
+    "wtt_gco2e_mj": 18.0,
+    "ttw_co2_g_mj": 0.0,
+    "ttw_ch4_slip_g_mj": 0.0,
+    "ttw_n2o_g_mj": 0.0,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 18.0,
+    "tank_volume_penalty": 2.1,
+    "bunker_availability_score": 0.3,
+    "compat_engine_types": [
+      "Dual-Fuel Methanol"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 4",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "methanol_e",
+    "name": "E-Methanol (Green Hydrogen + Direct Air Capture CO2)",
+    "category": "e-fuel",
+    "energy_density_mj_kg": 19.9,
+    "price_per_tonne_usd": 1260.0,
+    "wtt_gco2e_mj": 8.5,
+    "ttw_co2_g_mj": 0.0,
+    "ttw_ch4_slip_g_mj": 0.0,
+    "ttw_n2o_g_mj": 0.0,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 8.5,
+    "tank_volume_penalty": 2.1,
+    "bunker_availability_score": 0.18,
+    "compat_engine_types": [
+      "Dual-Fuel Methanol"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 4",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "ammonia_grey",
+    "name": "Grey Ammonia (Haber-Bosch from Fossil Gas)",
+    "category": "fossil",
+    "energy_density_mj_kg": 18.6,
+    "price_per_tonne_usd": 560.0,
+    "wtt_gco2e_mj": 122.0,
+    "ttw_co2_g_mj": 0.0,
+    "ttw_ch4_slip_g_mj": 0.0,
+    "ttw_n2o_g_mj": 0.015,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 126.0,
+    "tank_volume_penalty": 2.4,
+    "bunker_availability_score": 0.25,
+    "compat_engine_types": [
+      "Ammonia Dual-Fuel"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 5 (High Upstream Emissions)",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "ammonia_green",
+    "name": "Green Ammonia (Electrolytic Green H2 + N2)",
+    "category": "e-fuel",
+    "energy_density_mj_kg": 18.6,
+    "price_per_tonne_usd": 1150.0,
+    "wtt_gco2e_mj": 9.2,
+    "ttw_co2_g_mj": 0.0,
+    "ttw_ch4_slip_g_mj": 0.0,
+    "ttw_n2o_g_mj": 0.012,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 12.4,
+    "tank_volume_penalty": 2.4,
+    "bunker_availability_score": 0.12,
+    "compat_engine_types": [
+      "Ammonia Dual-Fuel"
+    ],
+    "source_ref": "IMO MEPC.391(81) Table 5",
+    "provenance": "reported"
+  },
+  {
+    "pathway_id": "h2_green",
+    "name": "Liquefied Green Hydrogen (Renewable Electrolysis LH2)",
+    "category": "zero_carbon",
+    "energy_density_mj_kg": 120.0,
+    "price_per_tonne_usd": 4200.0,
+    "wtt_gco2e_mj": 14.0,
+    "ttw_co2_g_mj": 0.0,
+    "ttw_ch4_slip_g_mj": 0.0,
+    "ttw_n2o_g_mj": 0.0,
+    "gwp_ch4": 28.0,
+    "gwp_n2o": 265.0,
+    "wtw_gco2e_mj": 14.0,
+    "tank_volume_penalty": 4.3,
+    "bunker_availability_score": 0.05,
+    "compat_engine_types": [
+      "Hydrogen Fuel Cell"
+    ],
+    "source_ref": "IMO MEPC.391(81) Guidelines",
+    "provenance": "estimated"
+  }
+]
