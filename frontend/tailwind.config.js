@@ -4,45 +4,65 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        marine: {
-          950: '#040814',
-          900: '#0a1024',
-          850: '#0e1733',
-          800: '#142145',
-          700: '#1e3264',
-          600: '#2a468b',
-          500: '#3b62bf',
+        canvas: '#F6F8FB',
+        surface: '#FFFFFF',
+        border: {
+          DEFAULT: '#D9E0EA',
+          hover: '#B9C5D5',
         },
-        cyan: {
-          400: '#22d3ee',
-          500: '#06b6d4',
-          600: '#0891b2',
+        slate: {
+          900: '#0F172A',
+          700: '#334155',
+          600: '#475569',
+          500: '#64748B',
+          400: '#94A3B8',
+          200: '#E2E8F0',
+          100: '#F1F5F9',
+          50: '#F8FAFC',
         },
-        emerald: {
-          400: '#34d399',
-          500: '#10b981',
-          600: '#059669',
+        primary: {
+          DEFAULT: '#0B63CE',
+          hover: '#0A55B0',
+          press: '#084792',
+          soft: '#E8F1FD',
+          text: '#0A4FA3',
         },
-        amber: {
-          400: '#fbbf24',
-          500: '#f59e0b',
+        success: {
+          DEFAULT: '#0F7B5F',
+          soft: '#E3F5EE',
+          text: '#065F46',
         },
-        rose: {
-          400: '#fb7185',
-          500: '#f43f5e',
+        warning: {
+          DEFAULT: '#B45309',
+          soft: '#FEF3C7',
+          text: '#92400E',
+        },
+        danger: {
+          DEFAULT: '#B42318',
+          soft: '#FDECEA',
+          text: '#991B1B',
+        },
+        info: {
+          DEFAULT: '#0B4FA3',
+          soft: '#E8F1FD',
+          text: '#0A3B7B',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
-      animation: {
-        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'spin-slow': 'spin 12s linear infinite',
+      boxShadow: {
+        card: '0 1px 2px rgba(15, 23, 42, 0.06)',
+        'card-hover': '0 4px 12px rgba(15, 23, 42, 0.08)',
+        drawer: '-4px 0 24px rgba(15, 23, 42, 0.12)',
+      },
+      borderRadius: {
+        control: '8px',
+        card: '12px',
       }
     },
   },
