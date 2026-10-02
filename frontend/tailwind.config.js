@@ -9,9 +9,24 @@ export default {
       colors: {
         canvas: '#F6F8FB',
         surface: '#FFFFFF',
+        'surface-alt': '#F1F5F9',
+        text: {
+          DEFAULT: '#0F172A',
+          muted: '#475569',
+        },
         border: {
           DEFAULT: '#D9E0EA',
           hover: '#B9C5D5',
+        },
+        chart: {
+          1: '#0B63CE', // blue
+          2: '#0F7B5F', // teal
+          3: '#D97706', // amber
+          4: '#6D28D9', // violet
+          5: '#B42318', // red
+          6: '#0284C7', // sky
+          7: '#64748B', // slate
+          8: '#BE185D', // rose
         },
         slate: {
           900: '#0F172A',
