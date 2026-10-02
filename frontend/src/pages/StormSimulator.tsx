@@ -70,7 +70,7 @@ export const StormSimulator: React.FC = () => {
  disabled={isReoptimizing}
  className={`flex items-center gap-2 px-5 py-3 rounded-xl tabular-nums text-xs font-bold transition-all ${
  isReoptimizing
- ? 'bg-slate-800 text-text-muted cursor-not-allowed'
+ ? 'bg-surface-alt text-text-muted cursor-not-allowed'
  : 'bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black shadow-lg shadow-amber-500/20'
 }`}
  >
@@ -169,7 +169,7 @@ export const StormSimulator: React.FC = () => {
  <div className="p-4 rounded-xl bg-surface-alt/60 border border-border space-y-3">
  <div className="flex items-center justify-between">
  <span className="text-xs tabular-nums font-bold text-text-muted">INITIAL OPTIMAL BASELINE</span>
- <span className="text-[10px] tabular-nums px-2 py-0.5 rounded bg-slate-800 text-text-muted">
+ <span className="text-[10px] tabular-nums px-2 py-0.5 rounded bg-surface-alt text-text-muted">
  Pre-Disruption
  </span>
  </div>

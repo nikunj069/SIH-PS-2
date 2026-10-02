@@ -66,7 +66,7 @@ export const DigitalTwinMap: React.FC = () => {
  className={`px-2.5 py-1 rounded text-xs tabular-nums capitalize transition-all ${
  activeLayer === layer
  ? 'bg-cyan-500/20 text-primary border border-cyan-500/40'
- : 'text-text-muted hover:text-slate-200'
+ : 'text-text-muted hover:text-text-muted'
 }`}
  >
  {layer}
@@ -79,14 +79,14 @@ export const DigitalTwinMap: React.FC = () => {
  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
  <div className="lg:col-span-3 glass-panel rounded-2xl p-4 border border-cyan-500/20 relative overflow-hidden bg-[#040817] shadow-2xl">
  {/* Subtle Radar Background Grid */}
- <div className="absolute inset-0 nav-grid-bg opacity-30 pointer-events-none" />
+ <div className="absolute inset-0 nav-grid-bg pointer-events-none" />
 
  {/* SVG Maritime Map */}
  <div className="relative w-full aspect-[16/9] min-h-[460px] bg-[#030611] rounded-xl overflow-hidden border border-border/80 flex items-center justify-center">
  <svg
  viewBox="0 0 1000 550"
  className="w-full h-full select-none"
- style={{ filter: 'drop-shadow(0 0 10px rgba(6, 182, 212, 0.05))'}}
+ style={{ filter: '(0 0 10px rgba(6, 182, 212, 0.05))'}}
  >
  {/* Simplified World Coastline Shapes */}
  <g fill="#0b1429" stroke="#172748" strokeWidth="0.8">
@@ -159,7 +159,7 @@ export const DigitalTwinMap: React.FC = () => {
  >
  {/* Pulsing ring around port */}
  {isSelected && (
- <circle cx={cx} cy={cy} r="10" fill="none" stroke="#22d3ee" strokeWidth="1" className="animate-ping opacity-60" />
+ <circle cx={cx} cy={cy} r="10" fill="none" stroke="#22d3ee" strokeWidth="1" className="animate-ping " />
  )}
  <circle
  cx={cx}
@@ -337,7 +337,7 @@ export const DigitalTwinMap: React.FC = () => {
  {selectedRoute.legs.map((leg, i) => (
  <div key={i} className="p-2 rounded bg-surface-alt/60 border border-border text-[11px] tabular-nums flex items-center justify-between">
  <div>
- <div className="text-slate-200">{leg.from_name} → {leg.to_name}</div>
+ <div className="text-text-muted">{leg.from_name} → {leg.to_name}</div>
  <div className="text-text-muted text-[10px]">Min depth: {leg.min_depth_m}m · Dist: {leg.distance_nm}nm</div>
  </div>
  {leg.is_eca && (

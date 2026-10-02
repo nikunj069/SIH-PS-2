@@ -1,0 +1,339 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: screenshots.spec.ts >> capture screenshots of all screens at all viewports
+- Location: e2e\screenshots.spec.ts:21:1
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e7]:
+        - generic [ref=e8]: ⚓
+        - generic [ref=e9]:
+          - generic [ref=e10]: Q-GREEN FLEET
+          - generic [ref=e11]: Fleet Decarbonization
+      - navigation "Main Navigation" [ref=e12]:
+        - button "Fleet overview" [ref=e13] [cursor=pointer]
+        - button "Fleet map" [ref=e21] [cursor=pointer]
+        - button "Fuel options" [ref=e26] [cursor=pointer]
+        - button "Optimization progress" [ref=e31] [cursor=pointer]
+        - button "Compare plans" [ref=e36] [cursor=pointer]
+        - button "What-if scenarios" [ref=e43] [cursor=pointer]
+        - button "Voyage review" [ref=e48] [cursor=pointer]
+    - generic [ref=e54]:
+      - button "Guided demo" [ref=e55] [cursor=pointer]
+      - button "Design system catalog" [ref=e60] [cursor=pointer]
+      - button "Help & guides" [ref=e67] [cursor=pointer]
+  - generic [ref=e72]:
+    - banner [ref=e73]:
+      - heading "Fleet overview" [level=1] [ref=e75]
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - generic [ref=e78]: Operational scenario
+          - generic [ref=e79]:
+            - generic [ref=e80]: "Scenario:"
+            - combobox "Operational scenario" [ref=e81] [cursor=pointer]:
+              - option "Baseline scenario" [selected]
+              - option "Storm perturbation"
+              - option "Fuel price shock (+20%)"
+        - 'generic "System online: Predictive models and optimizer ready. Connected to local simulation." [ref=e83]': System online
+        - group "View mode toggle" [ref=e86]:
+          - button "Client" [pressed] [ref=e88] [cursor=pointer]
+          - button "Analyst" [ref=e95] [cursor=pointer]
+    - main [ref=e98]:
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - heading "Fleet overview" [level=2] [ref=e102]
+            - paragraph [ref=e103]: See how your vessels are performing and get a recommended plan.
+            - generic [ref=e104]:
+              - generic [ref=e106]: Figures on this page use sample data and reported.
+              - generic [ref=e107]: •
+              - button "How to read these labels" [ref=e108] [cursor=pointer]
+          - generic [ref=e109]:
+            - button "Test a storm" [ref=e110] [cursor=pointer]
+            - button "Find the best plan" [ref=e116] [cursor=pointer]
+        - generic [ref=e121]:
+          - generic [ref=e122]:
+            - generic [ref=e123]:
+              - generic [ref=e124]:
+                - generic [ref=e125]: Vessels in fleet
+                - button "Definition of Vessels in fleet" [ref=e127] [cursor=pointer]
+              - 'generic "Data basis: Reported. Submitted in statutory declarations such as annual EU emissions reports or port logs." [ref=e133]': Reported
+            - generic [ref=e137]: "12"
+            - generic [ref=e139]: Commercial vessels in registry
+          - generic [ref=e141]:
+            - generic [ref=e143]:
+              - generic [ref=e144]: Emissions per tonne-mile
+              - button "Definition of Emissions per tonne-mile" [ref=e146] [cursor=pointer]
+            - generic [ref=e150]: —
+            - generic [ref=e152]: Not calculated yet
+          - generic [ref=e154]:
+            - generic [ref=e156]:
+              - generic [ref=e157]: On-time arrival rate
+              - button "Definition of On-time arrival rate" [ref=e159] [cursor=pointer]
+            - generic [ref=e163]: —
+            - generic [ref=e165]: Not calculated yet
+          - generic [ref=e167]:
+            - generic [ref=e168]:
+              - generic [ref=e169]:
+                - generic [ref=e170]: Vessels ready for shore power
+                - button "Definition of Vessels ready for shore power" [ref=e172] [cursor=pointer]
+              - 'generic "Data basis: Reported. Submitted in statutory declarations such as annual EU emissions reports or port logs." [ref=e178]': Reported
+            - generic [ref=e182]: 7 of 12
+            - generic [ref=e184]: Can connect to shore power at berth
+        - generic [ref=e186]:
+          - generic [ref=e188]:
+            - heading "Recommended operating plan" [level=3] [ref=e189]
+            - paragraph [ref=e190]: Click 'Find the best plan' to compute optimal vessel speeds, alternative fuel choices, and port stops for your fleet.
+          - generic [ref=e192]:
+            - heading "No plan generated yet" [level=4] [ref=e197]
+            - paragraph [ref=e198]: Click 'Find the best plan' to compute optimal vessel speeds, alternative fuel choices, and port stops for your fleet.
+            - button "Find the best plan" [ref=e200] [cursor=pointer]
+        - generic [ref=e202]:
+          - generic [ref=e203]:
+            - generic [ref=e204]:
+              - heading "Trade routes" [level=3] [ref=e205]
+              - paragraph [ref=e206]: Active commercial fairways with draft and environmental control rules
+            - generic [ref=e207]: Click any corridor to view waypoint details
+          - generic [ref=e208]:
+            - button "RTE_ASIA_EUR_01 Details Asia-Europe Mega Loop (Shanghai to Rotterdam) CNSHA → NLRTM 10,500 nm 4 legs 620h max" [ref=e209] [cursor=pointer]:
+              - generic [ref=e210]:
+                - generic [ref=e211]:
+                  - generic [ref=e212]: RTE_ASIA_EUR_01
+                  - generic [ref=e213]: Details
+                - generic [ref=e216]:
+                  - heading "Asia-Europe Mega Loop (Shanghai to Rotterdam)" [level=4] [ref=e217]
+                  - generic [ref=e218]: CNSHA → NLRTM
+                - generic [ref=e223]:
+                  - generic [ref=e224]: 10,500 nm
+                  - generic [ref=e225]: 4 legs
+                  - generic [ref=e226]: 620h max
+            - button "RTE_TRANSPAC_01 Details Transpacific Express (Shanghai to Los Angeles) CNSHA → USLAX 5,700 nm 2 legs 330h max" [ref=e227] [cursor=pointer]:
+              - generic [ref=e228]:
+                - generic [ref=e229]:
+                  - generic [ref=e230]: RTE_TRANSPAC_01
+                  - generic [ref=e231]: Details
+                - generic [ref=e234]:
+                  - heading "Transpacific Express (Shanghai to Los Angeles)" [level=4] [ref=e235]
+                  - generic [ref=e236]: CNSHA → USLAX
+                - generic [ref=e241]:
+                  - generic [ref=e242]: 5,700 nm
+                  - generic [ref=e243]: 2 legs
+                  - generic [ref=e244]: 330h max
+            - button "RTE_INTRA_EUR_01 Details North Sea Green Feeder Corridor NLRTM → DEHAM 520 nm 2 legs 42h max" [ref=e245] [cursor=pointer]:
+              - generic [ref=e246]:
+                - generic [ref=e247]:
+                  - generic [ref=e248]: RTE_INTRA_EUR_01
+                  - generic [ref=e249]: Details
+                - generic [ref=e252]:
+                  - heading "North Sea Green Feeder Corridor" [level=4] [ref=e253]
+                  - generic [ref=e254]: NLRTM → DEHAM
+                - generic [ref=e259]:
+                  - generic [ref=e260]: 520 nm
+                  - generic [ref=e261]: 2 legs
+                  - generic [ref=e262]: 42h max
+        - generic [ref=e263]:
+          - generic [ref=e264]:
+            - generic [ref=e265]:
+              - heading "Your fleet" [level=3] [ref=e266]
+              - paragraph [ref=e267]: Commercial vessels assigned to global shipping corridors
+            - generic [ref=e268]:
+              - textbox "Search vessels by name, type, or IMO..." [ref=e270]
+              - tablist [ref=e271]:
+                - tab "All 12" [selected] [ref=e272] [cursor=pointer]:
+                  - generic [ref=e273]: All
+                  - generic [ref=e274]: "12"
+                - tab "Container" [ref=e275] [cursor=pointer]
+                - tab "Bulk carrier" [ref=e277] [cursor=pointer]
+                - tab "Tanker" [ref=e279] [cursor=pointer]
+          - table [ref=e283]:
+            - rowgroup [ref=e284]:
+              - row [ref=e285]:
+                - columnheader "Vessel" [ref=e286] [cursor=pointer]
+                - columnheader "Cargo capacity" [ref=e293] [cursor=pointer]
+                - columnheader "Speed range" [ref=e300]
+                - columnheader "Fuel options" [ref=e303]
+                - columnheader "Shore power" [ref=e306]
+            - rowgroup [ref=e309]:
+              - row [ref=e310] [cursor=pointer]:
+                - cell "Atlantic Pioneer Container · IMO9811001" [ref=e311]:
+                  - generic [ref=e312]:
+                    - generic [ref=e313]: Atlantic Pioneer
+                    - generic [ref=e314]: Container · IMO9811001
+                - cell "195,000dwt 20,000 TEU" [ref=e315]:
+                  - generic [ref=e316]:
+                    - text: 195,000dwt
+                    - generic [ref=e317]: 20,000 TEU
+                - cell "11.0 – 22.5 kts" [ref=e318]
+                - cell "hfo mgo +3" [ref=e320]:
+                  - generic [ref=e321]:
+                    - generic [ref=e322]: hfo
+                    - generic [ref=e323]: mgo
+                    - generic [ref=e324]: "+3"
+                - cell "Ready" [ref=e326]
+              - row [ref=e331] [cursor=pointer]:
+                - cell "Pacific Voyager Container · IMO9811002" [ref=e332]:
+                  - generic [ref=e333]:
+                    - generic [ref=e334]: Pacific Voyager
+                    - generic [ref=e335]: Container · IMO9811002
+                - cell "145,000dwt 14,000 TEU" [ref=e336]:
+                  - generic [ref=e337]:
+                    - text: 145,000dwt
+                    - generic [ref=e338]: 14,000 TEU
+                - cell "10.5 – 21.5 kts" [ref=e339]
+                - cell "hfo mgo +2" [ref=e341]:
+                  - generic [ref=e342]:
+                    - generic [ref=e343]: hfo
+                    - generic [ref=e344]: mgo
+                    - generic [ref=e345]: "+2"
+                - cell "Ready" [ref=e347]
+              - row [ref=e352] [cursor=pointer]:
+                - cell "Nordic Express Container · IMO9811003" [ref=e353]:
+                  - generic [ref=e354]:
+                    - generic [ref=e355]: Nordic Express
+                    - generic [ref=e356]: Container · IMO9811003
+                - cell "68,000dwt 5,200 TEU" [ref=e357]:
+                  - generic [ref=e358]:
+                    - text: 68,000dwt
+                    - generic [ref=e359]: 5,200 TEU
+                - cell "10.0 – 20.0 kts" [ref=e360]
+                - cell "hfo mgo" [ref=e362]:
+                  - generic [ref=e363]:
+                    - generic [ref=e364]: hfo
+                    - generic [ref=e365]: mgo
+                - cell "— Not fitted" [ref=e366]
+              - row [ref=e369] [cursor=pointer]:
+                - cell "Baltic Feeder Container · IMO9811004" [ref=e370]:
+                  - generic [ref=e371]:
+                    - generic [ref=e372]: Baltic Feeder
+                    - generic [ref=e373]: Container · IMO9811004
+                - cell "24,000dwt 1,800 TEU" [ref=e374]:
+                  - generic [ref=e375]:
+                    - text: 24,000dwt
+                    - generic [ref=e376]: 1,800 TEU
+                - cell "9.0 – 18.0 kts" [ref=e377]
+                - cell "mgo methanol_bio +1" [ref=e379]:
+                  - generic [ref=e380]:
+                    - generic [ref=e381]: mgo
+                    - generic [ref=e382]: methanol_bio
+                    - generic [ref=e383]: "+1"
+                - cell "Ready" [ref=e385]
+              - row [ref=e390] [cursor=pointer]:
+                - cell "Capesize Titan Bulk Carrier · IMO9722001" [ref=e391]:
+                  - generic [ref=e392]:
+                    - generic [ref=e393]: Capesize Titan
+                    - generic [ref=e394]: Bulk Carrier · IMO9722001
+                - cell "182,000dwt" [ref=e395]
+                - cell "9.0 – 16.0 kts" [ref=e397]
+                - cell "hfo mgo +2" [ref=e399]:
+                  - generic [ref=e400]:
+                    - generic [ref=e401]: hfo
+                    - generic [ref=e402]: mgo
+                    - generic [ref=e403]: "+2"
+                - cell "— Not fitted" [ref=e405]
+              - row [ref=e408] [cursor=pointer]:
+                - cell "Panamax Mineral Bulk Carrier · IMO9722002" [ref=e409]:
+                  - generic [ref=e410]:
+                    - generic [ref=e411]: Panamax Mineral
+                    - generic [ref=e412]: Bulk Carrier · IMO9722002
+                - cell "76,000dwt" [ref=e413]
+                - cell "8.5 – 15.2 kts" [ref=e415]
+                - cell "hfo mgo +2" [ref=e417]:
+                  - generic [ref=e418]:
+                    - generic [ref=e419]: hfo
+                    - generic [ref=e420]: mgo
+                    - generic [ref=e421]: "+2"
+                - cell "Ready" [ref=e423]
+              - row [ref=e428] [cursor=pointer]:
+                - cell "Supramax Grain Bulk Carrier · IMO9722003" [ref=e429]:
+                  - generic [ref=e430]:
+                    - generic [ref=e431]: Supramax Grain
+                    - generic [ref=e432]: Bulk Carrier · IMO9722003
+                - cell "56,000dwt" [ref=e433]
+                - cell "8.0 – 14.5 kts" [ref=e435]
+                - cell "hfo mgo" [ref=e437]:
+                  - generic [ref=e438]:
+                    - generic [ref=e439]: hfo
+                    - generic [ref=e440]: mgo
+                - cell "— Not fitted" [ref=e441]
+              - row [ref=e444] [cursor=pointer]:
+                - cell "Handy Timber Bulk Carrier · IMO9722004" [ref=e445]:
+                  - generic [ref=e446]:
+                    - generic [ref=e447]: Handy Timber
+                    - generic [ref=e448]: Bulk Carrier · IMO9722004
+                - cell "34,000dwt" [ref=e449]
+                - cell "7.5 – 14.0 kts" [ref=e451]
+                - cell "mgo methanol_bio +1" [ref=e453]:
+                  - generic [ref=e454]:
+                    - generic [ref=e455]: mgo
+                    - generic [ref=e456]: methanol_bio
+                    - generic [ref=e457]: "+1"
+                - cell "Ready" [ref=e459]
+              - row [ref=e464] [cursor=pointer]:
+                - cell "VLCC Oceanic Tanker · IMO9633001" [ref=e465]:
+                  - generic [ref=e466]:
+                    - generic [ref=e467]: VLCC Oceanic
+                    - generic [ref=e468]: Tanker · IMO9633001
+                - cell "310,000dwt" [ref=e469]
+                - cell "9.5 – 16.5 kts" [ref=e471]
+                - cell "hfo mgo +2" [ref=e473]:
+                  - generic [ref=e474]:
+                    - generic [ref=e475]: hfo
+                    - generic [ref=e476]: mgo
+                    - generic [ref=e477]: "+2"
+                - cell "— Not fitted" [ref=e479]
+              - row [ref=e482] [cursor=pointer]:
+                - cell "Suezmax Energy Tanker · IMO9633002" [ref=e483]:
+                  - generic [ref=e484]:
+                    - generic [ref=e485]: Suezmax Energy
+                    - generic [ref=e486]: Tanker · IMO9633002
+                - cell "158,000dwt" [ref=e487]
+                - cell "9.0 – 16.0 kts" [ref=e489]
+                - cell "hfo mgo +2" [ref=e491]:
+                  - generic [ref=e492]:
+                    - generic [ref=e493]: hfo
+                    - generic [ref=e494]: mgo
+                    - generic [ref=e495]: "+2"
+                - cell "Ready" [ref=e497]
+              - row [ref=e502] [cursor=pointer]:
+                - cell "Aframax Gulf Tanker · IMO9633003" [ref=e503]:
+                  - generic [ref=e504]:
+                    - generic [ref=e505]: Aframax Gulf
+                    - generic [ref=e506]: Tanker · IMO9633003
+                - cell "105,000dwt" [ref=e507]
+                - cell "8.5 – 15.5 kts" [ref=e509]
+                - cell "hfo mgo" [ref=e511]:
+                  - generic [ref=e512]:
+                    - generic [ref=e513]: hfo
+                    - generic [ref=e514]: mgo
+                - cell "— Not fitted" [ref=e515]
+              - row [ref=e518] [cursor=pointer]:
+                - cell "Clean Chemical Tanker · IMO9633004" [ref=e519]:
+                  - generic [ref=e520]:
+                    - generic [ref=e521]: Clean Chemical
+                    - generic [ref=e522]: Tanker · IMO9633004
+                - cell "49,000dwt" [ref=e523]
+                - cell "8.0 – 15.0 kts" [ref=e525]
+                - cell "mgo methanol_grey +2" [ref=e527]:
+                  - generic [ref=e528]:
+                    - generic [ref=e529]: mgo
+                    - generic [ref=e530]: methanol_grey
+                    - generic [ref=e531]: "+2"
+                - cell "Ready" [ref=e533]
+          - paragraph [ref=e538]: Click any vessel to inspect engine, draft, and fuel specifications
+```

@@ -672,7 +672,7 @@ export const FleetCommandCenter: React.FC<Props> = ({
  {(selectedVessel.compatible_fuels || []).map((fuel) => (
  <span
  key={fuel}
- className="px-3 py-1 text-xs font-semibold bg-surface-alt text-slate-800 border border-border rounded-control"
+ className="px-3 py-1 text-xs font-semibold bg-surface-alt text-text-muted border border-border rounded-control"
  >
  {fuel}
  </span>

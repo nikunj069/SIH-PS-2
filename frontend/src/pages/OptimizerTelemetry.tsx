@@ -134,7 +134,7 @@ export const OptimizerTelemetry: React.FC<Props> = ({ onNavigateToPareto}) => {
  disabled={isRunning}
  className={`flex items-center gap-2 px-4 py-2 rounded-lg tabular-nums text-xs font-bold transition-all ${
  isRunning
- ? 'bg-slate-800 text-text-muted cursor-not-allowed border border-border'
+ ? 'bg-surface-alt text-text-muted cursor-not-allowed border border-border'
  : 'bg-cyan-500 hover:bg-cyan-400 text-black shadow-lg shadow-cyan-500/20'
 }`}
  >
@@ -246,7 +246,7 @@ export const OptimizerTelemetry: React.FC<Props> = ({ onNavigateToPareto}) => {
  fill="none"
  stroke="#22d3ee"
  strokeWidth="2.5"
- filter="drop-shadow(0 0 6px rgba(34, 211, 238, 0.4))"
+ filter="(0 0 6px rgba(34, 211, 238, 0.4))"
  />
 
  {/* Active Evaluation Marker */}
@@ -304,7 +304,7 @@ export const OptimizerTelemetry: React.FC<Props> = ({ onNavigateToPareto}) => {
  key={row.name}
  className={`p-2.5 rounded-lg border flex items-center justify-between ${
  row.win
- ? 'bg-cyan-950/40 border-cyan-500/40 text-cyan-200'
+ ? 'bg-cyan-950/40 border-cyan-500/40 text-primary'
  : 'bg-surface-alt/60 border-border/80 text-text-muted'
 }`}
  >
@@ -326,7 +326,7 @@ export const OptimizerTelemetry: React.FC<Props> = ({ onNavigateToPareto}) => {
  {onNavigateToPareto && (
  <button
  onClick={onNavigateToPareto}
- className="w-full mt-3 py-2.5 rounded-xl bg-surface-alt hover:bg-slate-800 text-primary border border-cyan-500/30 tabular-nums text-xs font-bold transition-all flex items-center justify-center gap-2"
+ className="w-full mt-3 py-2.5 rounded-xl bg-surface-alt hover:bg-surface-alt text-primary border border-cyan-500/30 tabular-nums text-xs font-bold transition-all flex items-center justify-center gap-2"
  >
  <Layers className="w-3.5 h-3.5" />
  <span>Inspect Pareto Front Archive</span>

@@ -154,7 +154,7 @@ export const ParetoExplorer: React.FC = () => {
  stroke="#0284c7"
  strokeWidth="2"
  strokeDasharray="4 2"
- className="opacity-70"
+ className=""
  />
 
  {/* Dominated Region Hatch (Conceptual) */}
@@ -176,7 +176,7 @@ export const ParetoExplorer: React.FC = () => {
  className="cursor-pointer group"
  >
  {isSelected && (
- <circle cx={cx} cy={cy} r="14" fill="none" stroke="#22d3ee" strokeWidth="1.5" className="animate-ping opacity-60" />
+ <circle cx={cx} cy={cy} r="14" fill="none" stroke="#22d3ee" strokeWidth="1.5" className="animate-ping " />
  )}
  <circle
  cx={cx}
@@ -324,7 +324,7 @@ export const ParetoExplorer: React.FC = () => {
 
  {/* Mathematical Explainability Modal */}
  {showExplainModal && explainData && (
- <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+ <div className="fixed inset-0 z-50 flex items-center justify-center p-4 /80 ">
  <div className="glass-panel w-full max-w-3xl rounded-2xl p-6 border border-cyan-500/40 bg-[#070d1e] shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
  <div className="flex items-center justify-between border-b border-border pb-3">
  <div className="flex items-center gap-2">
@@ -366,7 +366,7 @@ export const ParetoExplorer: React.FC = () => {
  <div className="space-y-2">
  {explainData.counterfactual_analysis.map((item, i) => (
  <div key={i} className="p-3 rounded-lg bg-slate-950 border border-border text-xs">
- <div className="font-semibold text-slate-200 mb-1 flex items-center gap-1.5">
+ <div className="font-semibold text-text-muted mb-1 flex items-center gap-1.5">
  <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
  <span>{item.question}</span>
  </div>

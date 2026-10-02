@@ -58,7 +58,7 @@ export const FuelIntelligence: React.FC = () => {
  className={`px-3 py-1 rounded-lg text-xs tabular-nums transition-all ${
  sortBy === mode
  ? 'bg-cyan-500/20 text-primary border border-cyan-500/40'
- : 'text-text-muted hover:text-slate-200'
+ : 'text-text-muted hover:text-text-muted'
 }`}
  >
  {mode === 'ci' ? 'Carbon Intensity' : mode === 'price' ? 'Price' : 'Energy'}
@@ -125,14 +125,14 @@ export const FuelIntelligence: React.FC = () => {
  onClick={() => setSelectedPathway(f)}
  className={`p-3 rounded-xl border transition-all cursor-pointer ${
  isSelected
- ? 'bg-slate-800/80 border-cyan-500 shadow-md shadow-cyan-500/10'
+ ? 'bg-surface-alt/80 border-cyan-500 shadow-md shadow-cyan-500/10'
  : 'bg-surface-alt/50 border-border/80 hover:border-border'
 }`}
  >
  <div className="flex items-center justify-between mb-1.5">
  <div className="flex items-center gap-2">
  <span className="tabular-nums text-xs font-bold text-text">{f.name}</span>
- <span className="text-[10px] tabular-nums px-1.5 py-0.5 rounded bg-slate-800 text-text-muted">
+ <span className="text-[10px] tabular-nums px-1.5 py-0.5 rounded bg-surface-alt text-text-muted">
  {f.feedstock}
  </span>
  </div>
