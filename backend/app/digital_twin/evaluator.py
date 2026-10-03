@@ -15,6 +15,9 @@ from backend.app.schemas import (
 from backend.app.prediction.physics import PhysicsFuelModel
 from backend.app.fuels.lca import FuelLCAEngine
 from backend.app.digital_twin.validator import ConstraintValidator
+from backend.app.india.monsoon import MonsoonIntelligenceEngine
+from backend.app.india.congestion import PortCongestionEngine
+from backend.app.prediction.degradation import DegradationModel, VesselHealthState
 
 
 class DigitalTwinEvaluator:
@@ -29,6 +32,8 @@ class DigitalTwinEvaluator:
         self.lca_engine = FuelLCAEngine(state.fuel_catalog)
         self.validator = ConstraintValidator(state)
         self.fuel_surrogate = fuel_surrogate
+        self.monsoon_engine = MonsoonIntelligenceEngine()
+        self.congestion_engine = PortCongestionEngine()
 
     def evaluate(self, plan: Plan, scenario_set: Optional[List[Scenario]] = None) -> EvaluationResult:
         """Score candidate plan across scenarios and produce complete evaluation."""
@@ -85,6 +90,10 @@ class DigitalTwinEvaluator:
                     speed = plan.speed.get(leg_key, vessel.design_speed_knots)
                     fuel_id = plan.fuel.get(leg_key, vessel.fuel_compat[0])
 
+                    # Apply monsoon intelligence to dynamically adjust weather
+                    start_lon = ports[leg.from_port_id].lon if leg.from_port_id in ports else ports[route.origin_port_id].lon
+                    adjusted_weather = self.monsoon_engine.apply_monsoon_to_leg(leg, start_lon)
+
                     # Fuel consumption calculation (surrogate or physics)
                     if self.fuel_surrogate is not None:
                         calc = self.fuel_surrogate.lookup_leg_fuel(
@@ -98,11 +107,21 @@ class DigitalTwinEvaluator:
                             vessel=vessel,
                             speed_knots=speed,
                             distance_nm=leg.distance_nm,
-                            weather_summary=leg.weather_summary,
+                            weather_summary=adjusted_weather,
                             weather_multiplier=scenario.weather_multiplier,
                         )
-
-                    hfo_eq_tonnes = calc["fuel_consumed_tonnes_hfo_eq"]
+                    
+                    # Apply Vessel Performance Degradation
+                    # Note: In a full DB setup, this state is fetched from the twin's historical records.
+                    health_state = VesselHealthState(
+                        vessel_id=vessel.vessel_id,
+                        months_since_drydock=24, # Mock aging for demo
+                        months_since_cleaning=6,
+                        vessel_age_years=8.0
+                    )
+                    deg_index = DegradationModel.calculate_current_index(health_state)
+                    hfo_eq_tonnes = DegradationModel.apply_degradation(calc["fuel_consumed_tonnes_hfo_eq"], deg_index)
+                    
                     transit_hours = calc["transit_time_hours"]
                     v_time += transit_hours
 
@@ -148,9 +167,9 @@ class DigitalTwinEvaluator:
                     if not port:
                         continue
 
-                    # Congestion waiting delay in hours
-                    port_delay = port.congestion_delay_mean_h + scenario.port_delay_hours.get(port_id, 0.0)
-                    berth_hours = 18.0 + port_delay
+                    # Congestion waiting delay in hours (Probabilistic twin)
+                    congestion_pred = self.congestion_engine.predict_congestion(port, scenario)
+                    berth_hours = 18.0 + congestion_pred.expected_delay_hours
                     v_time += berth_hours
 
                     ops_key = f"{v_id}_{port_id}"

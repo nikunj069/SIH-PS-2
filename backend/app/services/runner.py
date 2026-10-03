@@ -23,6 +23,10 @@ from backend.app.optimization.quantum.qpso import QPSOOptimizer
 from backend.app.optimization.quantum.qiga import QIGAOptimizer
 from backend.app.optimization.quantum.qgreen_hybrid import QGreenHybridOptimizer
 from backend.app.optimization.reoptimizer import DisruptionReoptimizer
+from backend.app.memory.store import FleetMemoryStore, ProblemFingerprint, ExperienceRecord
+
+
+memory_store = FleetMemoryStore()
 
 
 class RunRegistry:
@@ -108,6 +112,32 @@ class RunRegistry:
             solutions = optimizer.optimize(problem, evaluator, validator, telemetry_callback=on_telemetry)
             self.runs[run_id]["solutions"] = solutions
             self.runs[run_id]["status"] = "completed"
+            
+            # Store experience for future warm starts
+            if solutions and len(solutions) >= 3:
+                try:
+                    sorted_by_cost = sorted(solutions, key=lambda s: s.evaluation.objectives.total_cost_usd)
+                    sorted_by_ghg = sorted(solutions, key=lambda s: s.evaluation.objectives.wtw_ghg_tonnes)
+                    sorted_by_risk = sorted(solutions, key=lambda s: s.evaluation.objectives.eta_risk_prob)
+                    
+                    fp = ProblemFingerprint(
+                        vessel_count=len(state.vessels),
+                        active_route_count=len(state.routes),
+                        mean_fuel_price=550.0,
+                        weather_severity=1.0,
+                        congestion_level=1.0
+                    )
+                    rec = ExperienceRecord(
+                        record_id=f"MEM_{run_id}",
+                        fingerprint=fp,
+                        best_cost_plan=sorted_by_cost[0].plan,
+                        best_ghg_plan=sorted_by_ghg[0].plan,
+                        best_robust_plan=sorted_by_risk[0].plan,
+                        timestamp=time.time()
+                    )
+                    memory_store.store_experience(rec)
+                except Exception as ex:
+                    print(f"Failed to store memory: {ex}")
         except Exception as e:
             self.runs[run_id]["status"] = "failed"
             self.runs[run_id]["error"] = str(e)
@@ -157,9 +187,22 @@ class RunRegistry:
                 provenance=disruption_scenario.provenance,
             )
 
+            # Retrieve memory warm starts
+            fp = ProblemFingerprint(
+                vessel_count=len(state.vessels),
+                active_route_count=len(state.routes),
+                mean_fuel_price=550.0,
+                weather_severity=1.0 * disruption_scenario.weather_multiplier,
+                congestion_level=1.0 + (list(disruption_scenario.port_delay_hours.values())[0] if disruption_scenario.port_delay_hours else 0.0)
+            )
+            warm_start_plans = memory_store.retrieve_similar_plans(fp)
+            warm_start_sols = [ParetoSolution(solution_id=f"WS_{i}", plan=p, rank=1, crowding_distance=0.0, evaluation=None, provenance=Provenance.SIMULATED) for i, p in enumerate(warm_start_plans)]
+
+            combined_prior = (prior_solutions[:warm_start_archive_size] + warm_start_sols)
+
             solutions, delta = reoptimizer.reoptimize(
                 problem=prob,
-                prior_solutions=prior_solutions[:warm_start_archive_size],
+                prior_solutions=combined_prior,
                 disruption_scenario=disruption_scenario,
                 evaluator=evaluator,
                 validator=validator,
