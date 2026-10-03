@@ -561,28 +561,24 @@ class ApiService {
 
  getVoyageReplayData(voyageId: string) {
  const waypoints = [
- { step: 0, lat: 1.29, lon: 103.85, name: 'Singapore Departure', actual_speed: 15.2, opt_speed: 14.0, actual_fuel: 48.5, opt_fuel: 39.2, cum_actual_co2: 0, cum_opt_co2: 0},
- { step: 1, lat: 5.95, lon: 95.20, name: 'Malacca Strait Transit', actual_speed: 16.0, opt_speed: 13.8, actual_fuel: 54.2, opt_fuel: 38.0, cum_actual_co2: 150, cum_opt_co2: 118},
- { step: 2, lat: 8.50, lon: 77.00, name: 'Indian Ocean Fairway', actual_speed: 15.8, opt_speed: 14.2, actual_fuel: 52.8, opt_fuel: 41.5, cum_actual_co2: 480, cum_opt_co2: 385},
- { step: 3, lat: 11.80, lon: 51.50, name: 'Gulf of Aden Corridor', actual_speed: 16.5, opt_speed: 14.5, actual_fuel: 58.0, opt_fuel: 43.0, cum_actual_co2: 950, cum_opt_co2: 760},
- { step: 4, lat: 27.80, lon: 34.30, name: 'Red Sea Transit', actual_speed: 14.8, opt_speed: 13.5, actual_fuel: 46.0, opt_fuel: 37.0, cum_actual_co2: 1420, cum_opt_co2: 1120},
- { step: 5, lat: 31.20, lon: 32.30, name: 'Suez Canal Convoy', actual_speed: 8.5, opt_speed: 8.5, actual_fuel: 18.0, opt_fuel: 18.0, cum_actual_co2: 1610, cum_opt_co2: 1280},
- { step: 6, lat: 36.20, lon: -5.30, name: 'Strait of Gibraltar (ECA Ingress)', actual_speed: 15.5, opt_speed: 13.2, actual_fuel: 51.0, opt_fuel: 36.5, cum_actual_co2: 2350, cum_opt_co2: 1840},
- { step: 7, lat: 48.50, lon: -5.00, name: 'English Channel', actual_speed: 15.0, opt_speed: 13.0, actual_fuel: 49.0, opt_fuel: 35.0, cum_actual_co2: 2780, cum_opt_co2: 2150},
- { step: 8, lat: 51.95, lon: 4.14, name: 'Rotterdam Berth (Cold-Ironing)', actual_speed: 0.0, opt_speed: 0.0, actual_fuel: 5.5, opt_fuel: 0.0, cum_actual_co2: 3120, cum_opt_co2: 2340}
+ { step: 0, lat: 18.95, lon: 72.95, name: 'JNPT (Mumbai) Departure', actual_speed: 14.5, opt_speed: 12.0, actual_fuel: 48.5, opt_fuel: 39.2, cum_actual_co2: 0, cum_opt_co2: 0},
+ { step: 1, lat: 20.50, lon: 70.00, name: 'Arabian Sea Crossing', actual_speed: 15.5, opt_speed: 12.5, actual_fuel: 54.2, opt_fuel: 38.0, cum_actual_co2: 150, cum_opt_co2: 118},
+ { step: 2, lat: 23.50, lon: 63.50, name: 'Gulf of Oman Approach', actual_speed: 15.8, opt_speed: 13.0, actual_fuel: 52.8, opt_fuel: 41.5, cum_actual_co2: 300, cum_opt_co2: 240},
+ { step: 3, lat: 25.10, lon: 56.40, name: 'Strait of Hormuz Transit', actual_speed: 12.0, opt_speed: 10.5, actual_fuel: 30.0, opt_fuel: 25.0, cum_actual_co2: 450, cum_opt_co2: 360},
+ { step: 4, lat: 25.00, lon: 55.00, name: 'Jebel Ali Berth (Cold-Ironing)', actual_speed: 0.0, opt_speed: 0.0, actual_fuel: 5.5, opt_fuel: 0.0, cum_actual_co2: 470, cum_opt_co2: 360}
  ];
 
  return {
  voyage_id: voyageId,
  vessel_id: 'IMO9811001',
- vessel_name: 'Atlantic Pioneer (20,000 TEU)',
- route_name: 'Asia-Europe Mega Loop (CNSHA -> NLRTM)',
+ vessel_name: 'Desh Rakshak (15,000 TEU)',
+ route_name: 'India-Gulf Express (INNSA -> AEJEA)',
  provenance: 'simulated' as const,
  summary: {
- distance_nm: 10500,
- actual_transit_hours: 582,
- opt_transit_hours: 618,
- actual_fuel_tonnes: 1012.5,
+ distance_nm: 1150,
+ actual_transit_hours: 80,
+ opt_transit_hours: 96,
+ actual_fuel_tonnes: 191.0,
  opt_fuel_tonnes: 824.0,
  fuel_savings_tonnes: 188.5,
  fuel_savings_pct: 18.6,
