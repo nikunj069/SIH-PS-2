@@ -1,0 +1,118 @@
+[
+  {
+    "route_id": "RTE_IND_COASTAL_WEST_EAST",
+    "name": "Coastal Peninsular Loop (Mundra to Haldia)",
+    "origin_port_id": "INMUN",
+    "destination_port_id": "INHAL",
+    "total_distance_nm": 2150.0,
+    "demand_tonnes": 12000.0,
+    "deadline_hours": 200.0,
+    "legs": [
+      {
+        "leg_id": "LEG_INMUN_INCOK",
+        "from_port_id": "INMUN",
+        "to_port_id": "INCOK",
+        "distance_nm": 850.0,
+        "depth_m": 25.0,
+        "in_eca": false,
+        "baseline_eta_h": 65.0,
+        "weather_summary": {
+          "significant_wave_height_m": 1.8,
+          "wind_speed_knots": 15.0,
+          "relative_wind_angle_deg": 45.0,
+          "current_speed_knots": 0.5
+        },
+        "provenance": "synthetic"
+      },
+      {
+        "leg_id": "LEG_INCOK_INTUT",
+        "from_port_id": "INCOK",
+        "to_port_id": "INTUT",
+        "distance_nm": 220.0,
+        "depth_m": 20.0,
+        "in_eca": false,
+        "baseline_eta_h": 16.0,
+        "weather_summary": {
+          "significant_wave_height_m": 1.4,
+          "wind_speed_knots": 12.0,
+          "relative_wind_angle_deg": 30.0,
+          "current_speed_knots": 0.3
+        },
+        "provenance": "synthetic"
+      },
+      {
+        "leg_id": "LEG_INTUT_INHAL",
+        "from_port_id": "INTUT",
+        "to_port_id": "INHAL",
+        "distance_nm": 1080.0,
+        "depth_m": 8.5,
+        "in_eca": false,
+        "baseline_eta_h": 85.0,
+        "weather_summary": {
+          "significant_wave_height_m": 2.1,
+          "wind_speed_knots": 18.0,
+          "relative_wind_angle_deg": 60.0,
+          "current_speed_knots": 0.6
+        },
+        "provenance": "synthetic"
+      }
+    ],
+    "provenance": "synthetic"
+  },
+  {
+    "route_id": "RTE_IND_EXIM_JNPA_SGSIN",
+    "name": "India-Far East Corridor (JNPA to Singapore)",
+    "origin_port_id": "INNSA",
+    "destination_port_id": "SGSIN",
+    "total_distance_nm": 2400.0,
+    "demand_tonnes": 50000.0,
+    "deadline_hours": 165.0,
+    "legs": [
+      {
+        "leg_id": "LEG_INNSA_SGSIN",
+        "from_port_id": "INNSA",
+        "to_port_id": "SGSIN",
+        "distance_nm": 2400.0,
+        "depth_m": 35.0,
+        "in_eca": false,
+        "baseline_eta_h": 135.0,
+        "weather_summary": {
+          "significant_wave_height_m": 2.0,
+          "wind_speed_knots": 16.0,
+          "relative_wind_angle_deg": 40.0,
+          "current_speed_knots": 0.4
+        },
+        "provenance": "synthetic"
+      }
+    ],
+    "provenance": "synthetic"
+  },
+  {
+    "route_id": "RTE_IND_EXIM_MUN_JEB",
+    "name": "India-Middle East Gulf (Mundra to Jebel Ali)",
+    "origin_port_id": "INMUN",
+    "destination_port_id": "AEJEA",
+    "total_distance_nm": 950.0,
+    "demand_tonnes": 80000.0,
+    "deadline_hours": 85.0,
+    "legs": [
+      {
+        "leg_id": "LEG_INMUN_AEJEA",
+        "from_port_id": "INMUN",
+        "to_port_id": "AEJEA",
+        "distance_nm": 950.0,
+        "depth_m": 45.0,
+        "in_eca": false,
+        "baseline_eta_h": 70.0,
+        "weather_summary": {
+          "significant_wave_height_m": 1.5,
+          "wind_speed_knots": 11.0,
+          "relative_wind_angle_deg": 25.0,
+          "current_speed_knots": 0.2
+        },
+        "provenance": "synthetic"
+      }
+    ],
+    "provenance": "synthetic"
+  }
+]

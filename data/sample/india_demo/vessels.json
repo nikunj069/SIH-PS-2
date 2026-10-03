@@ -1,0 +1,116 @@
+[
+  {
+    "vessel_id": "IND_COASTAL_01",
+    "name": "Sagar Feeder",
+    "vessel_type": "Container",
+    "dwt": 18000.0,
+    "capacity_teu": 1200,
+    "design_speed_knots": 14.5,
+    "min_speed_knots": 9.0,
+    "max_speed_knots": 16.5,
+    "draft_design_m": 8.0,
+    "engine_kw": 9500.0,
+    "sfoc_base_g_kwh": 180.0,
+    "speed_exponent_n": 2.95,
+    "admiralty_coefficient": 450.0,
+    "fuel_compat": [
+      "hfo",
+      "mgo"
+    ],
+    "tank_capacities_tonnes": {
+      "hfo": 800.0,
+      "mgo": 250.0
+    },
+    "ops_compatible": true,
+    "ops_power_kw": 600.0,
+    "hull_factor": 1.05,
+    "provenance": "synthetic"
+  },
+  {
+    "vessel_id": "IND_COASTAL_02",
+    "name": "Bharat Bulk",
+    "vessel_type": "Bulk Carrier",
+    "dwt": 45000.0,
+    "capacity_teu": null,
+    "design_speed_knots": 13.0,
+    "min_speed_knots": 8.0,
+    "max_speed_knots": 14.5,
+    "draft_design_m": 11.2,
+    "engine_kw": 7500.0,
+    "sfoc_base_g_kwh": 175.0,
+    "speed_exponent_n": 2.85,
+    "admiralty_coefficient": 510.0,
+    "fuel_compat": [
+      "mgo",
+      "methanol_bio"
+    ],
+    "tank_capacities_tonnes": {
+      "mgo": 600.0,
+      "methanol_bio": 1200.0
+    },
+    "ops_compatible": false,
+    "ops_power_kw": 400.0,
+    "hull_factor": 1.02,
+    "provenance": "synthetic"
+  },
+  {
+    "vessel_id": "IND_EXIM_01",
+    "name": "Oceanic Gateway",
+    "vessel_type": "Container",
+    "dwt": 95000.0,
+    "capacity_teu": 8500,
+    "design_speed_knots": 18.0,
+    "min_speed_knots": 10.5,
+    "max_speed_knots": 21.0,
+    "draft_design_m": 14.0,
+    "engine_kw": 38000.0,
+    "sfoc_base_g_kwh": 170.0,
+    "speed_exponent_n": 3.1,
+    "admiralty_coefficient": 530.0,
+    "fuel_compat": [
+      "hfo",
+      "mgo",
+      "lng_fossil",
+      "lng_bio"
+    ],
+    "tank_capacities_tonnes": {
+      "hfo": 2800.0,
+      "mgo": 600.0,
+      "lng_fossil": 3200.0,
+      "lng_bio": 3200.0
+    },
+    "ops_compatible": true,
+    "ops_power_kw": 1500.0,
+    "hull_factor": 1.0,
+    "provenance": "synthetic"
+  },
+  {
+    "vessel_id": "IND_EXIM_02",
+    "name": "Kandla Pioneer",
+    "vessel_type": "Tanker",
+    "dwt": 115000.0,
+    "capacity_teu": null,
+    "design_speed_knots": 14.2,
+    "min_speed_knots": 8.5,
+    "max_speed_knots": 15.5,
+    "draft_design_m": 15.0,
+    "engine_kw": 14500.0,
+    "sfoc_base_g_kwh": 172.0,
+    "speed_exponent_n": 2.88,
+    "admiralty_coefficient": 560.0,
+    "fuel_compat": [
+      "hfo",
+      "mgo",
+      "ammonia_green"
+    ],
+    "tank_capacities_tonnes": {
+      "hfo": 3000.0,
+      "mgo": 500.0,
+      "ammonia_green": 4500.0
+    },
+    "ops_compatible": false,
+    "ops_power_kw": 750.0,
+    "hull_factor": 1.04,
+    "provenance": "synthetic"
+  }
+]

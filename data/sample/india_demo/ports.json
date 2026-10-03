@@ -1,0 +1,263 @@
+[
+  {
+    "port_id": "INMUN",
+    "name": "Mundra Port",
+    "unlocode": "INMUN",
+    "lat": 22.73,
+    "lon": 69.7,
+    "max_draft_m": 17.5,
+    "ops_available": false,
+    "ops_price_per_kwh": 0.15,
+    "ops_clean_grid_factor": 710.0,
+    "bunker_stock_tonnes": {
+      "hfo": 25000.0,
+      "mgo": 10000.0,
+      "lng_fossil": 5000.0
+    },
+    "bunker_price_spread": {
+      "hfo": 1.0,
+      "mgo": 1.02
+    },
+    "congestion_delay_mean_h": 6.0,
+    "congestion_delay_std_h": 2.5,
+    "coastal_traffic": 15000000.0,
+    "overseas_traffic": 135000000.0,
+    "green_hydrogen_status": "planned",
+    "green_methanol_status": "none",
+    "green_ammonia_status": "none",
+    "electrification_status": "in_progress",
+    "rail_connectivity": true,
+    "road_connectivity": true,
+    "iwt_connectivity": false,
+    "provenance": "reported"
+  },
+  {
+    "port_id": "INNSA",
+    "name": "Jawaharlal Nehru Port (JNPA)",
+    "unlocode": "INNSA",
+    "lat": 18.95,
+    "lon": 72.95,
+    "max_draft_m": 15.0,
+    "ops_available": true,
+    "ops_price_per_kwh": 0.16,
+    "ops_clean_grid_factor": 680.0,
+    "bunker_stock_tonnes": {
+      "hfo": 30000.0,
+      "mgo": 15000.0,
+      "methanol_grey": 2000.0
+    },
+    "bunker_price_spread": {
+      "hfo": 0.98,
+      "mgo": 0.99
+    },
+    "congestion_delay_mean_h": 8.5,
+    "congestion_delay_std_h": 4.0,
+    "coastal_traffic": 5000000.0,
+    "overseas_traffic": 60000000.0,
+    "green_hydrogen_status": "planned",
+    "green_methanol_status": "pilot",
+    "green_ammonia_status": "none",
+    "electrification_status": "advanced",
+    "rail_connectivity": true,
+    "road_connectivity": true,
+    "iwt_connectivity": false,
+    "provenance": "reported"
+  },
+  {
+    "port_id": "INCOK",
+    "name": "Cochin Port",
+    "unlocode": "INCOK",
+    "lat": 9.96,
+    "lon": 76.26,
+    "max_draft_m": 14.5,
+    "ops_available": true,
+    "ops_price_per_kwh": 0.14,
+    "ops_clean_grid_factor": 650.0,
+    "bunker_stock_tonnes": {
+      "hfo": 12000.0,
+      "mgo": 8000.0,
+      "lng_fossil": 2000.0,
+      "methanol_bio": 500.0
+    },
+    "bunker_price_spread": {
+      "hfo": 1.05,
+      "mgo": 1.03
+    },
+    "congestion_delay_mean_h": 4.0,
+    "congestion_delay_std_h": 1.5,
+    "coastal_traffic": 12000000.0,
+    "overseas_traffic": 20000000.0,
+    "green_hydrogen_status": "pilot",
+    "green_methanol_status": "planned",
+    "green_ammonia_status": "planned",
+    "electrification_status": "advanced",
+    "rail_connectivity": true,
+    "road_connectivity": true,
+    "iwt_connectivity": true,
+    "provenance": "reported"
+  },
+  {
+    "port_id": "INMAA",
+    "name": "Chennai Port",
+    "unlocode": "INMAA",
+    "lat": 13.08,
+    "lon": 80.3,
+    "max_draft_m": 16.5,
+    "ops_available": false,
+    "ops_price_per_kwh": 0.17,
+    "ops_clean_grid_factor": 720.0,
+    "bunker_stock_tonnes": {
+      "hfo": 18000.0,
+      "mgo": 12000.0
+    },
+    "bunker_price_spread": {
+      "hfo": 1.02,
+      "mgo": 1.01
+    },
+    "congestion_delay_mean_h": 7.0,
+    "congestion_delay_std_h": 3.0,
+    "coastal_traffic": 8000000.0,
+    "overseas_traffic": 40000000.0,
+    "green_hydrogen_status": "none",
+    "green_methanol_status": "none",
+    "green_ammonia_status": "none",
+    "electrification_status": "planned",
+    "rail_connectivity": true,
+    "road_connectivity": true,
+    "iwt_connectivity": false,
+    "provenance": "reported"
+  },
+  {
+    "port_id": "INHAL",
+    "name": "Haldia Dock Complex",
+    "unlocode": "INHAL",
+    "lat": 22.03,
+    "lon": 88.06,
+    "max_draft_m": 8.5,
+    "ops_available": false,
+    "ops_price_per_kwh": 0.16,
+    "ops_clean_grid_factor": 780.0,
+    "bunker_stock_tonnes": {
+      "hfo": 8000.0,
+      "mgo": 6000.0
+    },
+    "bunker_price_spread": {
+      "hfo": 1.08,
+      "mgo": 1.05
+    },
+    "congestion_delay_mean_h": 12.0,
+    "congestion_delay_std_h": 5.0,
+    "coastal_traffic": 18000000.0,
+    "overseas_traffic": 25000000.0,
+    "green_hydrogen_status": "none",
+    "green_methanol_status": "none",
+    "green_ammonia_status": "none",
+    "electrification_status": "early",
+    "rail_connectivity": true,
+    "road_connectivity": true,
+    "iwt_connectivity": true,
+    "provenance": "reported"
+  },
+  {
+    "port_id": "INTUT",
+    "name": "V.O. Chidambaranar Port (Tuticorin)",
+    "unlocode": "INTUT",
+    "lat": 8.75,
+    "lon": 78.17,
+    "max_draft_m": 14.2,
+    "ops_available": true,
+    "ops_price_per_kwh": 0.14,
+    "ops_clean_grid_factor": 620.0,
+    "bunker_stock_tonnes": {
+      "hfo": 10000.0,
+      "mgo": 5000.0,
+      "ammonia_green": 1000.0
+    },
+    "bunker_price_spread": {
+      "hfo": 1.04,
+      "mgo": 1.02
+    },
+    "congestion_delay_mean_h": 5.0,
+    "congestion_delay_std_h": 2.0,
+    "coastal_traffic": 10000000.0,
+    "overseas_traffic": 28000000.0,
+    "green_hydrogen_status": "planned",
+    "green_methanol_status": "planned",
+    "green_ammonia_status": "pilot",
+    "electrification_status": "advanced",
+    "rail_connectivity": true,
+    "road_connectivity": true,
+    "iwt_connectivity": false,
+    "provenance": "reported"
+  },
+  {
+    "port_id": "AEJEA",
+    "name": "Jebel Ali Port (Dubai)",
+    "unlocode": "AEJEA",
+    "lat": 25.01,
+    "lon": 55.06,
+    "max_draft_m": 17.0,
+    "ops_available": false,
+    "ops_price_per_kwh": 0.2,
+    "ops_clean_grid_factor": 450.0,
+    "bunker_stock_tonnes": {
+      "hfo": 45000.0,
+      "mgo": 22000.0,
+      "lng_fossil": 10000.0
+    },
+    "bunker_price_spread": {
+      "hfo": 0.95,
+      "mgo": 0.96
+    },
+    "congestion_delay_mean_h": 3.0,
+    "congestion_delay_std_h": 1.2,
+    "coastal_traffic": 0.0,
+    "overseas_traffic": 0.0,
+    "green_hydrogen_status": "planned",
+    "green_methanol_status": "none",
+    "green_ammonia_status": "none",
+    "electrification_status": "planned",
+    "rail_connectivity": false,
+    "road_connectivity": true,
+    "iwt_connectivity": false,
+    "provenance": "reported"
+  },
+  {
+    "port_id": "SGSIN",
+    "name": "Port of Singapore",
+    "unlocode": "SGSIN",
+    "lat": 1.28,
+    "lon": 103.85,
+    "max_draft_m": 20.0,
+    "ops_available": true,
+    "ops_price_per_kwh": 0.24,
+    "ops_clean_grid_factor": 340.0,
+    "bunker_stock_tonnes": {
+      "hfo": 80000.0,
+      "mgo": 40000.0,
+      "lng_fossil": 22000.0,
+      "lng_bio": 4000.0,
+      "methanol_grey": 16000.0,
+      "methanol_bio": 4500.0,
+      "methanol_e": 2000.0,
+      "ammonia_green": 1000.0
+    },
+    "bunker_price_spread": {
+      "hfo": 0.97,
+      "mgo": 0.98,
+      "lng_fossil": 0.96
+    },
+    "congestion_delay_mean_h": 5.0,
+    "congestion_delay_std_h": 2.5,
+    "coastal_traffic": 0.0,
+    "overseas_traffic": 0.0,
+    "green_hydrogen_status": "planned",
+    "green_methanol_status": "operational",
+    "green_ammonia_status": "pilot",
+    "electrification_status": "advanced",
+    "rail_connectivity": false,
+    "road_connectivity": true,
+    "iwt_connectivity": false,
+    "provenance": "reported"
+  }
+]
