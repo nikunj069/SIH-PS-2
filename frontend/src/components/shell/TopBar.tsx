@@ -1,118 +1,95 @@
 import React from 'react';
-import { Menu, ChevronDown} from 'lucide-react';
-import { ViewModeSwitch, type ViewMode} from '../common/ViewModeSwitch';
-import { Tooltip} from '../common/Tooltip';
-import { copy} from '../../copy/en';
+import { Menu } from 'lucide-react';
 
 export interface TopBarProps {
- pageTitle: string;
- viewMode: ViewMode;
- onViewModeChange: (mode: ViewMode) => void;
- selectedScenario: string;
- onSelectScenario: (scenario: string) => void;
- isBackendLive?: boolean;
- onToggleMobileMenu: () => void;
+  pageTitle: string;
+  selectedScenario: string;
+  onSelectScenario: (scenario: string) => void;
+  isBackendLive?: boolean;
+  onToggleMobileMenu: () => void;
+  pageHint?: string;
 }
+
+const SCENARIO_EMOJI: Record<string, string> = {
+  baseline:   '📋',
+  storm:      '🌀',
+  fuel_shock: '⚠️',
+};
 
 export const TopBar: React.FC<TopBarProps> = ({
- pageTitle,
- viewMode,
- onViewModeChange,
- selectedScenario,
- onSelectScenario,
- isBackendLive = true,
- onToggleMobileMenu,
+  pageTitle,
+  selectedScenario,
+  onSelectScenario,
+  isBackendLive = true,
+  onToggleMobileMenu,
+  pageHint,
 }) => {
- const scenarios = [
- { id: 'baseline', label: 'Baseline scenario'},
- { id: 'storm', label: 'Storm perturbation'},
- { id: 'fuel_shock', label: 'Fuel price shock (+20%)'},
- ];
+  const scenarios = [
+    { id: 'baseline',   label: 'Baseline (Normal operations)' },
+    { id: 'storm',      label: 'Monsoon storm disruption' },
+    { id: 'fuel_shock', label: 'Fuel price shock (+20%)' },
+  ];
 
- return (
- <header className="h-16 bg-surface border-b border-border sticky top-0 z-30 flex items-center justify-between px-6 lg:px-8">
- {/* Left side: Hamburger toggle + Page Title */}
- <div className="flex items-center gap-3 min-w-0">
- <button
- type="button"
- onClick={onToggleMobileMenu}
- className="p-2 -ml-2 text-text-muted hover:text-text hover:bg-surface-alt rounded-control lg:hidden cursor-pointer"
- aria-label="Open navigation menu"
- >
- <Menu className="w-5 h-5" />
- </button>
+  return (
+    <header className="h-14 bg-white/90 backdrop-blur-2xl border-b border-slate-200/80 sticky top-0 z-30 flex items-center justify-between px-4 lg:px-6 shadow-sm">
+      {/* Left */}
+      <div className="flex items-center gap-3 min-w-0">
+        <button
+          type="button"
+          onClick={onToggleMobileMenu}
+          className="p-2 -ml-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl lg:hidden cursor-pointer transition-colors"
+          aria-label="Open navigation menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
 
- <h1 className="text-xl font-semibold text-text leading-7 truncate">
- {pageTitle}
- </h1>
- </div>
+        <div className="min-w-0">
+          <h1 className="text-base font-bold text-[#0f172a] leading-none truncate">
+            {pageTitle}
+          </h1>
+          {pageHint && (
+            <p className="text-xs text-slate-400 truncate hidden sm:block mt-0.5 leading-none">{pageHint}</p>
+          )}
+        </div>
+      </div>
 
- {/* Right side: Scenario dropdown + Status Dot + View Mode Switch */}
- <div className="flex items-center gap-3 lg:gap-4 shrink-0">
- {/* Scenario Selector */}
- <div className="relative hidden sm:block">
- <label htmlFor="scenario-select" className="sr-only">
- Operational scenario
- </label>
- <div className="flex items-center gap-1.5 px-3 py-1.5 bg-surface-alt border border-border rounded-control text-xs font-medium text-text-muted hover:border-slate-400 transition-colors">
- <span className="text-text-muted">Scenario:</span>
- <select
- id="scenario-select"
- value={selectedScenario}
- onChange={(e) => onSelectScenario(e.target.value)}
- className="bg-transparent text-text font-semibold focus:outline-none cursor-pointer pr-4 appearance-none"
- >
- {scenarios.map((s) => (
- <option key={s.id} value={s.id}>
- {s.label}
- </option>
- ))}
- </select>
- <ChevronDown className="w-3.5 h-3.5 text-text-muted pointer-events-none -ml-3" />
- </div>
- </div>
+      {/* Right */}
+      <div className="flex items-center gap-2 shrink-0">
 
- {/* System Online Status Dot with Tooltip */}
- <Tooltip
- content={
- <div className="space-y-1">
- <p className="font-semibold text-text">{copy.brand.systemOnline}</p>
- <p className="text-text-muted">{copy.brand.systemDetails}</p>
- {viewMode === 'analyst' && (
- <p className="text-[11px] text-primary-soft border-t border-border pt-1 mt-1 tabular-nums">
- Engine: FastAPI Localhost (Port 8000) · Seed: 42
- </p>
- )}
- </div>
-}
- position="bottom"
- >
- <div
- tabIndex={0}
- className="flex items-center gap-2 px-2.5 py-1 bg-success-soft/70 border border-success/30 rounded-full cursor-help outline-none focus-visible:ring-2 focus-visible:ring-primary"
- aria-label={`${copy.brand.systemOnline}: ${copy.brand.systemDetails}`}
- >
- <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
- <span className="text-xs font-semibold text-successText hidden md:inline">
- {copy.brand.systemOnline}
- </span>
- </div>
- </Tooltip>
+        {/* Scenario Selector */}
+        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs hover:border-slate-300 transition-colors">
+          <span className="text-slate-400 font-medium shrink-0 hidden md:block">Scenario:</span>
+          <span>{SCENARIO_EMOJI[selectedScenario] ?? '📋'}</span>
+          <select
+            id="scenario-select"
+            value={selectedScenario}
+            onChange={(e) => onSelectScenario(e.target.value)}
+            className="bg-transparent text-[#0f172a] font-semibold focus:outline-none cursor-pointer appearance-none max-w-[160px]"
+          >
+            {scenarios.map((s) => (
+              <option key={s.id} value={s.id}>{s.label}</option>
+            ))}
+          </select>
+        </div>
 
- {/* Analyst mode badges (Only visible in Analyst mode) */}
- {viewMode === 'analyst' && (
- <div className="hidden xl:flex items-center gap-2 text-xs tabular-nums text-text-muted bg-surface-alt px-2.5 py-1 rounded-control border border-border">
- <span>Seed: 42</span>
- <span>•</span>
- <span className={isBackendLive ? 'text-success' : 'text-text-muted'}>
- {isBackendLive ? 'Live API' : 'Cached sample'}
- </span>
- </div>
- )}
+        {/* Live status */}
+        <div
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-colors ${
+            isBackendLive
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
+              : 'bg-amber-50 border-amber-200 text-amber-700'
+          }`}
+          title={isBackendLive ? 'AI backend running on localhost:8000' : 'Offline demo mode'}
+        >
+          <div className={`w-1.5 h-1.5 rounded-full ${isBackendLive ? 'bg-emerald-500 animate-pulse' : 'bg-amber-400'}`} />
+          <span className="hidden sm:inline">{isBackendLive ? 'AI Live' : 'Demo'}</span>
+        </div>
 
- {/* View Mode Switch (Client vs Analyst) */}
- <ViewModeSwitch mode={viewMode} onChange={onViewModeChange} />
- </div>
- </header>
- );
+        {/* India badge */}
+        <div className="hidden lg:flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-50 border border-orange-100 text-xs font-semibold text-orange-700">
+          🇮🇳 <span className="hidden xl:inline">India Fleet</span>
+        </div>
+      </div>
+    </header>
+  );
 };

@@ -7,78 +7,103 @@ export default {
   theme: {
     extend: {
       colors: {
-        canvas: '#F6F8FB',
-        surface: '#FFFFFF',
-        'surface-alt': '#F1F5F9',
+        canvas: 'transparent',
+        surface: 'rgba(255, 255, 255, 0.90)',
+        'surface-alt': 'rgba(248, 250, 252, 0.80)',
+
         text: {
-          DEFAULT: '#0F172A',
-          muted: '#475569',
+          DEFAULT: '#0f172a',
+          muted: '#64748b',
         },
         border: {
-          DEFAULT: '#D9E0EA',
-          hover: '#B9C5D5',
+          DEFAULT: 'rgba(15, 23, 42, 0.09)',
+          hover:   'rgba(15, 23, 42, 0.18)',
         },
+
+        // ── PRIMARY: Amber/Orange (matches screenshot) ──────────────────
+        primary: {
+          DEFAULT: '#f59e0b',  // amber-500
+          hover:   '#d97706',  // amber-600
+          press:   '#b45309',  // amber-700
+          soft:    '#fef3c7',  // amber-100
+          text:    '#92400e',  // amber-900
+        },
+
+        // ── SUCCESS: Emerald ─────────────────────────────────────────────
+        success: {
+          DEFAULT: '#10b981',
+          soft:    '#d1fae5',
+          text:    '#065f46',
+        },
+
+        // ── WARNING ──────────────────────────────────────────────────────
+        warning: {
+          DEFAULT: '#f59e0b',
+          soft:    '#fef3c7',
+          text:    '#92400e',
+        },
+
+        // ── DANGER ───────────────────────────────────────────────────────
+        danger: {
+          DEFAULT: '#ef4444',
+          soft:    '#fee2e2',
+          text:    '#991b1b',
+        },
+
+        // ── INFO ─────────────────────────────────────────────────────────
+        info: {
+          DEFAULT: '#0ea5e9',
+          soft:    '#e0f2fe',
+          text:    '#0369a1',
+        },
+
+        // ── CHART palette ────────────────────────────────────────────────
         chart: {
-          1: '#0B63CE', // blue
-          2: '#0F7B5F', // teal
-          3: '#D97706', // amber
-          4: '#6D28D9', // violet
-          5: '#B42318', // red
-          6: '#0284C7', // sky
-          7: '#64748B', // slate
-          8: '#BE185D', // rose
+          1: '#f59e0b', // amber  — primary
+          2: '#10b981', // emerald
+          3: '#0ea5e9', // sky
+          4: '#8b5cf6', // violet
+          5: '#ef4444', // red
+          6: '#14b8a6', // teal
+          7: '#64748b', // slate
+          8: '#ec4899', // pink
         },
+
         slate: {
-          900: '#0F172A',
+          900: '#0f172a',
           700: '#334155',
           600: '#475569',
-          500: '#64748B',
-          400: '#94A3B8',
-          200: '#E2E8F0',
-          100: '#F1F5F9',
-          50: '#F8FAFC',
+          500: '#64748b',
+          400: '#94a3b8',
+          300: '#cbd5e1',
+          200: '#e2e8f0',
+          100: '#f1f5f9',
+          50:  '#f8fafc',
         },
-        primary: {
-          DEFAULT: '#0B63CE',
-          hover: '#0A55B0',
-          press: '#084792',
-          soft: '#E8F1FD',
-          text: '#0A4FA3',
-        },
-        success: {
-          DEFAULT: '#0F7B5F',
-          soft: '#E3F5EE',
-          text: '#065F46',
-        },
-        warning: {
-          DEFAULT: '#B45309',
-          soft: '#FEF3C7',
-          text: '#92400E',
-        },
-        danger: {
-          DEFAULT: '#B42318',
-          soft: '#FDECEA',
-          text: '#991B1B',
-        },
-        info: {
-          DEFAULT: '#0B4FA3',
-          soft: '#E8F1FD',
-          text: '#0A3B7B',
-        }
       },
+
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
+
       boxShadow: {
-        card: '0 1px 2px rgba(15, 23, 42, 0.06)',
-        'card-hover': '0 4px 12px rgba(15, 23, 42, 0.08)',
-        drawer: '-4px 0 24px rgba(15, 23, 42, 0.12)',
+        card:        '0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04)',
+        'card-hover':'0 8px 24px rgba(15,23,42,0.10)',
+        drawer:      '-4px 0 24px rgba(15,23,42,0.10)',
+        amber:       '0 4px 20px rgba(245,158,11,0.25)',
       },
+
       borderRadius: {
-        control: '8px',
-        card: '12px',
-      }
+        control: '10px',
+        card:    '16px',
+        '2xl':   '16px',
+        '3xl':   '24px',
+      },
+
+      backdropBlur: {
+        '2xl': '32px',
+      },
     },
   },
   plugins: [],

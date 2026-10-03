@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,53 +8,56 @@
   color-scheme: light;
 }
 
+/* ── Global background — clean very-light blue-white gradient ── */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #F6F8FB;
-  color: #0F172A;
+  background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 40%, #fefce8 70%, #f0fdf4 100%);
+  background-attachment: fixed;
+  color: #0f172a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
-/* Tabular figures for numbers */
+/* ── Glass panel utility ── */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ── Tabular figures ── */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Subtle clean enterprise scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
+/* ── Scrollbars ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-::-webkit-scrollbar-track {
-  background: #F1F5F9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
-}
-
-/* Accessible focus ring utility */
-.focus-ring {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
+/* ── Focus rings ── */
+.focus-ring { outline: 2px solid transparent; outline-offset: 2px; }
 .focus-ring:focus-visible {
-  outline: 2px solid #0B63CE;
+  outline: 2px solid #f59e0b;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(11, 99, 206, 0.15);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
 }
 
-/* Grayscale filter for OpenStreetMap tiles to match light theme */
+/* ── Map tiles ── */
 .map-tiles {
-  filter: grayscale(100%) opacity(80%) contrast(0.9) brightness(1.1);
+  filter: grayscale(20%) opacity(90%) brightness(1.05);
+}
+
+/* ── Smooth page entrance ── */
+main > * {
+  animation: fadeUp 0.2s ease-out;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
