@@ -64,9 +64,9 @@ export const KpiTile: React.FC<KpiTileProps> = ({
  return (
  <div
  className={`
- bg-surface border border-border rounded-card p-6 shadow-card
- flex flex-col justify-between transition-all duration-150
- hover:border-border-hover min-h-[148px]
+ bg-white/90 border border-slate-200/80 rounded-2xl p-5 shadow-card
+ flex flex-col justify-between transition-all duration-200
+ hover:shadow-card-hover hover:-translate-y-0.5 min-h-[140px]
  ${className}
  `}
  >

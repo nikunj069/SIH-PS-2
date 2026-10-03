@@ -21,13 +21,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
  return (
  <div
  className={`
- flex flex-col items-center justify-center p-8 text-center bg-surface-alt/60
- border border-dashed border-border rounded-card min-h-[220px]
+ flex flex-col items-center justify-center p-8 text-center bg-slate-50/80
+ border border-dashed border-slate-200 rounded-2xl min-h-[220px]
  ${className}
  `}
  >
  {icon && (
- <div className="w-12 h-12 rounded-full bg-surface-alt flex items-center justify-center text-text-muted mb-4 shadow-sm">
+ <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-4 shadow-sm">
  {icon}
  </div>
  )}
