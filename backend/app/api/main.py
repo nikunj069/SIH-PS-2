@@ -23,6 +23,9 @@ from backend.app.schemas import (
     ProblemDefinition,
 )
 
+from backend.app.api.abatement import router as abatement_router
+from backend.app.api.corridor import router as corridor_router
+
 app = FastAPI(
     title="Q-GREEN FLEET API",
     version="0.2.0",
@@ -36,6 +39,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(abatement_router, prefix="/api/abatement", tags=["Carbon Analytics"])
+app.include_router(corridor_router, prefix="/api/corridor", tags=["Strategic Planning"])
 
 
 # Request & Response wrappers
