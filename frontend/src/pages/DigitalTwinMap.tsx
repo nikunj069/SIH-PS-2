@@ -113,10 +113,10 @@ export const DigitalTwinMap: React.FC = () => {
           {/* Leaflet Map */}
           <div className="relative w-full aspect-[16/9] min-h-[460px] bg-surface-alt rounded-xl overflow-hidden border border-border/80">
             <MapContainer 
-              center={[20, 0]} 
-              zoom={2.5} 
+              center={[21.0, 78.0]} 
+              zoom={5} 
               style={{ height: '100%', width: '100%', background: '#F8FAFC' }}
-              minZoom={2}
+              minZoom={3}
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -24,18 +24,16 @@ import { EmptyState} from '../components/common/EmptyState';
 import { ErrorState} from '../components/common/ErrorState';
 import { CardSkeleton} from '../components/common/Skeleton';
 import { Tooltip} from '../components/common/Tooltip';
-import type { ViewMode} from '../components/common/ViewModeSwitch';
 import { buildDataBasisStrip} from '../utils/provenance';
 
 interface Props {
- viewMode?: ViewMode;
  onNavigate: (screen: any) => void;
 }
 
 export const FleetCommandCenter: React.FC<Props> = ({ 
- viewMode = 'client', 
  onNavigate 
 }) => {
+
  const [vessels, setVessels] = useState<Vessel[]>([]);
  const [routes, setRoutes] = useState<Route[]>([]);
  const [computedPlan, setComputedPlan] = useState<ParetoSolution | null>(null);
@@ -447,14 +445,14 @@ export const FleetCommandCenter: React.FC<Props> = ({
  </span>
  </div>
 
- <div className="p-4 bg-success-soft/50 border border-success/30 rounded-control space-y-1">
- <span className="text-xs font-medium text-successText block">
+ <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-control space-y-1">
+ <span className="text-xs font-medium text-emerald-700 block">
  {copy.fleetOverview.recommendedPlan.savingsHeading}
  </span>
- <span className="text-2xl font-bold text-success tabular-nums">
+ <span className="text-2xl font-bold text-emerald-600 tabular-nums">
  $142,000 (11.4%)
  </span>
- <span className="text-xs text-successText block">
+ <span className="text-xs text-emerald-700 block">
  Compared to baseline unoptimized schedule
  </span>
  </div>
@@ -567,7 +565,7 @@ export const FleetCommandCenter: React.FC<Props> = ({
  columns={tableColumns}
  data={filteredVessels}
  keyExtractor={(v) => v.vessel_id}
- analystMode={viewMode === 'analyst'}
+ analystMode={false}
  onRowClick={(v) => setSelectedVessel(v)}
  selectedId={selectedVessel?.vessel_id}
  emptyState={
@@ -622,39 +620,39 @@ export const FleetCommandCenter: React.FC<Props> = ({
  {copy.drawer.specifications}
  </h4>
  <dl className="grid grid-cols-2 gap-3 text-sm">
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Cargo Capacity</dt>
  <dd className="font-semibold text-text mt-0.5">
  {selectedVessel.dwt?.toLocaleString()} DWT
  </dd>
  </div>
  {selectedVessel.capacity_teu && (
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Container Capacity</dt>
  <dd className="font-semibold text-text mt-0.5">
  {selectedVessel.capacity_teu.toLocaleString()} TEU
  </dd>
  </div>
  )}
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Design Speed</dt>
  <dd className="font-semibold text-text mt-0.5">
  {(selectedVessel.design_speed_knots ?? 16).toFixed(1)} knots
  </dd>
  </div>
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Design Draft</dt>
  <dd className="font-semibold text-text mt-0.5">
  {(selectedVessel.draft_design_m ?? selectedVessel.draft ?? 14).toFixed(1)} m
  </dd>
  </div>
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Engine Power</dt>
  <dd className="font-semibold text-text mt-0.5">
  {(selectedVessel.engine_kw ?? selectedVessel.power_kw ?? 45000).toLocaleString()} kW
  </dd>
  </div>
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Shore Power Ready</dt>
  <dd className={`font-semibold mt-0.5 ${selectedVessel.ops_capable ? 'text-success' : 'text-text-muted'}`}>
  {selectedVessel.ops_capable ? 'Can connect at berth' : 'Not fitted'}
@@ -672,7 +670,7 @@ export const FleetCommandCenter: React.FC<Props> = ({
  {(selectedVessel.compatible_fuels || []).map((fuel) => (
  <span
  key={fuel}
- className="px-3 py-1 text-xs font-semibold bg-surface-alt text-text-muted border border-border rounded-control"
+ className="px-3 py-1 text-xs font-semibold bg-slate-100 text-slate-500 border border-slate-200 rounded-xl"
  >
  {fuel}
  </span>
@@ -680,20 +678,7 @@ export const FleetCommandCenter: React.FC<Props> = ({
  </div>
  </div>
 
- {/* Section 3: Analyst Mode Attributes */}
- {viewMode === 'analyst' && (
- <div className="p-4 bg-surface-alt border border-border rounded-control space-y-2">
- <span className="text-xs font-semibold text-text-muted block">
- Analyst Engine Parameters
- </span>
- <div className="grid grid-cols-2 gap-2 text-xs tabular-nums text-text-muted">
- <div>Hull Exponent ($n$): {(selectedVessel.hull_exponent ?? 3.0).toFixed(2)}</div>
- <div>SFOC Base: {selectedVessel.sfoc_base_g_kwh ?? 170} g/kWh</div>
- <div>Provenance: {selectedVessel.provenance ?? 'reported'}</div>
- </div>
- </div>
- )}
- </div>
+</div>
  )}
  </Drawer>
 
@@ -719,25 +704,25 @@ export const FleetCommandCenter: React.FC<Props> = ({
  Corridor Overview
  </h4>
  <dl className="grid grid-cols-2 gap-3 text-sm">
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Origin Port</dt>
  <dd className="font-semibold text-text mt-0.5">
  {selectedRoute.origin_port_id}
  </dd>
  </div>
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Destination Port</dt>
  <dd className="font-semibold text-text mt-0.5">
  {selectedRoute.destination_port_id}
  </dd>
  </div>
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Total Distance</dt>
  <dd className="font-semibold text-text mt-0.5">
  {selectedRoute.total_distance_nm.toLocaleString()} nm
  </dd>
  </div>
- <div className="p-3 bg-surface-alt border border-border/50 rounded-control">
+ <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
  <dt className="text-xs text-text-muted font-medium">Transit Deadline</dt>
  <dd className="font-semibold text-text mt-0.5">
  {selectedRoute.deadline_hours} hours
@@ -755,7 +740,7 @@ export const FleetCommandCenter: React.FC<Props> = ({
  {selectedRoute.legs.map((leg, index) => (
  <div
  key={leg.leg_id || index}
- className="p-3 bg-surface border border-border rounded-control flex items-center justify-between text-xs"
+ className="p-3 bg-white border border-slate-200 rounded-xl flex items-center justify-between text-xs shadow-sm"
  >
  <div>
  <span className="font-semibold text-text">
